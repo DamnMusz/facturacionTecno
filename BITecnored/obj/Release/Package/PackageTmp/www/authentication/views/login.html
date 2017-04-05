@@ -1,0 +1,58 @@
+﻿<style>
+    .login-box .login-box-body {
+        box-shadow: 0 5px 5px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    }
+</style>
+<style>
+    .login-box .login-box-body {
+        box-shadow: 0 5px 5px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+        background: rgba(255, 255, 255, 0.8);
+    }
+
+    .login-logo a, .register-logo a {
+        color: ghostwhite;
+    }
+
+    body {
+        background: url('img/background/bg-0.jpg') no-repeat center center fixed;
+        background-size: cover;
+    }
+</style>
+
+<script src="https://apis.google.com/js/platform.js" async defer></script>
+<meta name="google-signin-client_id" content="65883235199-0rjjf87urv8catopgtq1vpvog4dj7fgo.apps.googleusercontent.com">
+
+<div class="login-box">
+    <div class="login-logo">
+        <a href="login.html"><b>TECNO</b>RED</a>
+    </div><!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">Inicio de sesión</p>
+        <div ng-show="error" class="alert alert-danger">{{error}}</div>
+        <form name="form" ng-submit="login()" role="form">
+            <div class="form-group">
+                <i class="fa fa-user"></i>
+                <label for="username">Usuario</label>
+                <input type="text" class="form-control" name="username" id="username" ng-model="username" required placeholder="Usuario">
+                <span ng-show="form.username.$dirty && form.username.$error.required" class="help-block">Ingrese un nombre de usuario</span>
+            </div>
+            <div class="form-group">
+                <i class="fa fa-lock"></i>
+                <label for="password">Contraseña</label>
+                <input type="password" name="password" id="password" class="form-control" placeholder="Contraseña" ng-model="password" required>
+                <span ng-show="form.password.$dirty && form.password.$error.required" class="help-block">Ingrese la contraseña</span>
+            </div>
+            <div class="form-actions">
+                <div class="col-xs-2 col-sm-3">
+                </div>
+                <div class="col-xs-8 col-sm-6">
+                    <button type="submit" ng-disabled="form.$invalid || dataLoading" class="btn btn-primary btn-block btn-social btn-flat"><i class="fa fa-user"></i>Ingresar</button>
+                </div>
+            </div>
+            <br />
+            <div class="social-auth-links text-center">
+            </div><!-- /.social-auth-links -->
+        </form>
+        <!--<a href="#">Olvidé mi contraseña</a><br>-->
+    </div><!-- /.login-box-body -->
+</div><!-- /.login-box -->

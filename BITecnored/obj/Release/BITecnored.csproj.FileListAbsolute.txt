@@ -1,0 +1,11 @@
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\BITecnored.dll.config
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\BITecnored.dll
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\BITecnored.pdb
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\obj\Release\BITecnored.csprojResolveAssemblyReference.cache
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\obj\Release\BITecnored.dll
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\obj\Release\BITecnored.pdb
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\obj\Release\BITecnored.csproj.App.config
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\Model\Fichador\tc400.dll
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\Model\Fichador\tc400.lib
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\HibernateTriki.cfg.xml
+C:\Users\Dionisio\Documents\Visual Studio 2015\Projects\BITecnored(1)\BITecnored\bin\HibernateAgenda.cfg.xml

@@ -1,0 +1,420 @@
+﻿<style>
+    @keyframes fab-tarifas {
+    0%   {background-color: orangered; left:0px; top:0px;}
+    50%  {background-color: orangered; left:200px; top:0px;}
+    100% {background-color: blue; left:0px; top:0px;}
+    /*0%   {background-color: orangered; transform: scale(1); opacity: 1;}
+    20%  {background-color: orangered; transform: scale(1.25); opacity: 0.75;}
+    100% {background-color: blue; transform: scale(1); opacity: 1;}*/
+    }
+
+    .selected-row,
+    .selected-row:hover {
+        background-color:rgb(185, 233, 255);
+    }
+
+    .fab-color-animation {
+        width: 100px;
+        height: 100px;
+        background-color: blue;
+        animation-name: fab-tarifas;
+        animation-duration: 2s;
+    }
+</style>
+
+<div class="col-xs-12">
+    <div class="alert alert-danger" ng-show="cantidad_tarifas_incompletas > 0">
+        <h4><i class="icon fa fa-ban"></i> Tarifas Incompletas!</h4>
+        Hay <b>{{cantidad_tarifas_incompletas}}</b> centros activos en la facturación que no tienen tarifa asignada para el período actual. Complete la información o deshabilitelos para poder facturar.
+        <span id="filtrar_incompletos" ng-click="toogle_tarifas_incompletas()">{{viendo_tarifas_incompletas ? "Quitar filtro" : "Filtrar"}} centros sin tarifa.</span>
+    </div>
+</div>
+
+<div class="col-md-6">
+    <div class="box" ng-class="{'tarifa-left-box': animate}">
+        <div class="box-header">
+            <h3 class="box-title">Centros de Inspección</h3>
+            <a class="btn-floating waves-effect waves-light pull-right blue" ng-click="search_modal()"
+               data-toggle="tooltip" data-placement="top" title="Buscar Centro"><i class="material-icons">search</i></a>
+            <div class="col-xs-12" ng-show="busqueda_centros_aplicada.length > 0">
+                <label>Búsqueda por: </label>
+                <span ng-repeat="criterio in busqueda_centros_aplicada" class="label label-default" style="margin-right: 5px;">
+                    <b style="color:darkcyan;">{{criterio}}:</b> {{to_str_value(busqueda[criterio])}}
+                </span>
+
+            </div>
+        </div>
+        <div class="box-body">
+            <div class="table-responsive">
+                <table st-table="peritos" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Nombre(Fantasía)</th>
+                            <th>Afinidad Tarifaria</th>
+                            <th>Factura</th>
+                            <th>Tarifa Actual</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="centro in centros" ng-click="select_centro_tarifa(centro)" ng-class="{'selected-row': centro.id == selected_centro_tarifa.id}">
+                            <td>{{centro.id}}</td>
+                            <td>{{centro.nombre_centro}}</td>
+                            <td>{{centro.nombre_fantasia}}</td>
+                            <td>{{centro.afinidad_tarifaria.value}}</td>
+                            <td ng-if="centro.tipo_factura == 'A'"><span class="badge bg-navy" style="width:20px;">A</span></td>
+                            <td ng-if="centro.tipo_factura == 'B'"><span class="badge bg-orange" style="width:20px;">B</span></td>
+                            <td ng-if="centro.tipo_factura == 'C'"><span class="badge bg-maroon" style="width:20px;">C</span></td>
+                            <td ng-if="centro.tipo_factura == '-'"><span class="badge bg-gray" style="width:20px;">-</span></td>
+                            <td><b>{{(centro.tarifa_actual != "")?("$"+centro.tarifa_actual):""}}</b></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-12">
+                    <b class="pull-right">Mostrando {{centros.length}} de {{cantidad_centros}} resultados</b>
+                </div>
+                <div class="col-sm-7">
+                    <div id="tablaPeritos_paginate" class="dataTables_paginate paging_simple_numbers pull-right">
+                        <ul class="pagination">
+                            <li id="tablaPeritos_previous" class="paginate_button previous" ng-class="{disabled: actual_page == 1}" ng-click="actual_page == 1||change_page(actual_page-1)">
+                                <a tabindex="0" data-dt-idx="0" aria-controls="tablaPeritos">Anterior</a>
+                            </li>
+                            <li class="paginate_button" ng-repeat="num in paginas" ng-class="{active: actual_page == num}" ng-click="change_page(num)">
+                                <a tabindex="0" data-dt-idx="{{num}}" aria-controls="tablaPeritos">{{num}}</a>
+                            </li>
+                            <li id="tablaPeritos_next" class="paginate_button next" ng-class="{disabled: actual_page == cantidad_paginas}" ng-click="actual_page == cantidad_paginas||change_page(actual_page+1)">
+                                <a tabindex="0" data-dt-idx="0" aria-controls="tablaPeritos">Siguiente</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.box-body -->
+        <div class="overlay" ng-show="loading_table">
+            <div class="col-xs-12">
+                <br />
+                <h3 class="pull-right">{{loading_table_text}}</h3>
+            </div>
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+    </div><!-- /.box -->
+</div>
+
+
+<div class="col-md-6">
+    <div class="box" ng-class="{'tarifa-right-box': animate}" style="min-height: 100px;" >
+        <div class="box-header">
+            <h3 class="box-title">Histórico de tarifas del centro</h3>
+            <a class="btn-floating waves-effect waves-light pull-right"
+               data-toggle="tooltip" data-placement="top" title="Crear Tarifa" ng-click="toogle_nueva_tarifa()"
+                ng-show="is_centro_tarifa_selected()" ng-class="{'anim-show-alpha':is_centro_tarifa_selected(), 'anim-hide-alpha':!is_centro_tarifa_selected()}" style="opacity:0;"><i class="material-icons">add</i></a>
+        </div>
+        <div class="box-body" ng-show="is_centro_tarifa_selected()">
+            <div class="col s12 m5" ng-show="is_nueva_tarifa_selected" ng-class="{'show-from-right':is_nueva_tarifa_selected, 'hide-to-right':!is_nueva_tarifa_selected}">
+                <div class="card-panel teal" style="padding-top:5px;" >
+                    <div class="white-text">
+                        <h3>Nueva Tarifa</h3>
+                        <div class="row">
+                            <div class="col s12 m5">
+                                <div class="col col-sm-3 pull-left">
+                                    <div class="form-group">
+                                        Tarifa por Inspección
+                                        <div class="input-group">
+                                            <span class="input-group-addon">$</span>
+                                            <input type="number" class="form-control" ng-model="nueva_tarifa.monto_por_ip" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-3 pull-left">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            {{nueva_tarifa.por_rango ? "Desde" : "Per\u00edodo"}}
+                                            <div class='input-group date' id='periodo_nueva_tarifa_desde'>
+                                                <span class="input-group-addon">
+                                                    <span class="fa fa-calendar"></span>
+                                                </span>
+                                                <input type='text' class="form-control" ng-model="nueva_tarifa.periodo_desde" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col col-sm-3 pull-left" ng-show="nueva_tarifa.por_rango"
+                                     ng-class="{'show-from-right':nueva_tarifa.por_rango}">
+                                    <div class="input-group">
+                                        <div class="form-group">
+                                            Hasta
+                                            <div class='input-group date' id='periodo_nueva_tarifa_hasta'>
+                                                <span class="input-group-addon">
+                                                    <span class="fa fa-calendar"></span>
+                                                </span>
+                                                <input type='text' class="form-control" ng-model="nueva_tarifa.periodo_hasta" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="col col-sm-3 pull-left">
+                                    <div class="btn-floating waves-effect waves-light pull-left bg-yellow"
+                                         data-toggle="tooltip" data-placement="top" title='{{texto_rango_periodos()}}' ng-click="toogle_rango_periodos()"
+                                         style="margin-top:15px; opacity: 0;" ng-class="{'show-btn-periodo':nueva_tarifa.por_rango, 'show-btn-periodo-alpha':!nueva_tarifa.por_rango}">
+                                        <i class="material-icons">swap_horiz</i>
+                                    </div>
+                                </div>
+                                <div class="col col-sm-12 pull-left">
+                                    <div class="form-group">
+                                        Observación <small>({{50 - nueva_tarifa.observacion.length}} caracteres)</small>
+                                        <input type="text" maxlength="50" class="form-control" ng-model="nueva_tarifa.observacion" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group pull-right">
+                        <a class="btn-floating green waves-effect waves-light pull-right"
+                           data-toggle="tooltip" data-placement="top" title="Aceptar" ng-click="crear_nueva_tarifa()"><i class="material-icons">done</i></a>
+                        <a class="btn-floating red waves-effect waves-light pull-right"
+                           data-toggle="tooltip" data-placement="top" title="Cancelar" ng-click="toogle_nueva_tarifa()"><i class="material-icons">not_interested</i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-8">
+                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="table-responsive">
+                        <table st-table="peritos" class="table table-bordered table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Período</th>
+                                    <th>Tarifa/Insp.</th>
+                                    <th>Observación</th>
+                                    <th>Fecha creación</th>
+                                    <th>Usuario</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="tarifa in tarifas">
+                                    <td>{{tarifa.id}}</td>
+                                    <td>{{tarifa.periodo_desde.toString().substring(4,6)}}/{{tarifa.periodo_desde.toString().substring(0,4)}}</td>
+                                    <td><b>${{tarifa.monto_por_ip}}</b></td>
+                                    <td>{{tarifa.observacion}}</td>
+                                    <td>{{tarifa.fecha_creacion}}</td>
+                                    <td>{{tarifa.usuario_creacion}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="cantidad_paginas_tarifas > 0">
+                <div class="col-sm-12">
+                    <b class="pull-right">Mostrando {{tarifas.length}} de {{cantidad_tarifas}} resultados</b>
+                </div>
+                <div class="col-sm-7">
+                    <div id="tablaTarifas_paginate" class="dataTables_paginate paging_simple_numbers pull-right">
+                        <ul class="pagination">
+                            <li id="tablaTarifas_previous" class="paginate_button previous" ng-class="{disabled: actual_page_tarifas == 1}" ng-click="actual_page_tarifas == 1||change_page_tarifas(actual_page_tarifas-1)">
+                                <a tabindex="0" data-dt-idx="0" aria-controls="tablaTarifas">Anterior</a>
+                            </li>
+                            <li class="paginate_button" ng-repeat="num_t in paginas_tarifas" ng-class="{active: actual_page_tarifas == num_t}" ng-click="change_page_tarifas(num_t)">
+                                <a tabindex="0" data-dt-idx="{{num_t}}" aria-controls="tablaTarifas">{{num_t}}</a>
+                            </li>
+                            <li id="tablaTarifas_next" class="paginate_button next" ng-class="{disabled: actual_page_tarifas == cantidad_paginas_tarifas}" ng-click="actual_page_tarifas == cantidad_paginas_tarifas||change_page_tarifas(actual_page_tarifas+1)">
+                                <a tabindex="0" data-dt-idx="0" aria-controls="tablaTarifas">Siguiente</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /.box-body -->
+        <div class="overlay" ng-show="loading_tarifas">
+            <div class="col-xs-12">
+                <br />
+                <h3 class="pull-right">{{loading_tarifas_text}}</h3>
+            </div>
+            <i class="fa fa-refresh fa-spin"></i>
+        </div>
+    </div><!-- /.box -->
+</div>
+
+
+<!-- Modal New -->
+<div id="modalNewTarifa" class="modal modal-default fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content box">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-edit"> Nueva tarifa para centro "{{selected_centro_tarifa.nombre_fantasia}}"</i></h4><span class="badge bg-blue">#{{selected_centro_tarifa.id}} {{selected_centro_tarifa.nombre_centro}}</span>
+            </div>
+            <div class="modal-body box-body">
+                <div class="row">
+                    <form role="form" data-toggle="validator" id="formEditRow">
+                        <div class="col-xs-12">
+                            <div class="col-xs-8">
+                                <div class="input-group">
+                                    <div class="form-group">
+                                        <label>Período</label>
+                                        <div class='input-group date' id='periodo_nueva_tarifa'>
+                                            <span class="input-group-addon">
+                                                <span class="fa fa-calendar"></span>
+                                            </span>
+                                            <input type='text' class="form-control" ng-model="nueva_tarifa.periodo" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <div class="switch">
+                                        <label>
+                                            Inactivo
+                                            <input type="checkbox" ng-model="centro_selected_aux.activo" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span class="lever"></span>
+                                            Activo
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="switch">
+                                        <label>
+                                            Externo
+                                            <input type="checkbox" ng-model="centro_selected_aux.propio" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span class="lever"></span>
+                                            Propio
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label>CUIT:</label>
+                                    <input type="text" class="form-control" pattern="([0-9]{2}-[0-9]{8}-[0-9])|([0-9]{11})" data-inputmask='"mask": "99-99999999-9"' data-mask ng-model="centro_selected_aux.cuit" required>
+                                    <!--<div class="help-block">Debe contener 11 caracteres num&eacute;ricos</div>-->
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <label>Factura:</label>
+                                <div class="btn-group" style="width: 100%" ng-click="toogle_factura(centro_selected_aux)">
+                                    <button type="button" class="btn btn-default waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top"
+                                            title="Cambiar Tipo de Factura" style="display:inline-block; width: 40px">
+                                        <b>{{centro_selected_aux.tipo_factura}}</b>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Razón Social:</label>
+                                    <input type="text" class="form-control" ng-model="centro_selected_aux.razon_social">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Provincia Legal:</label>
+                                    <div class="btn-group" style="width: 100%">
+                                        <button type="button" class="btn btn-default waves-effect waves-light" style="width: 90%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{centro_selected_aux.provincia_legal.value || '-'}}</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu scrollable-menu">
+                                            <li ng-repeat="item in provincias" value="{{item}}" ng-click="select_provincia(item)">
+                                                <a>{{item.value}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Localidad Legal:</label>
+                                    <div class="btn-group" style="width: 100%">
+                                        <!--<button type="button" class="btn btn-default waves-effect waves-light" ng-show='afinidad_selected == ""'>- Sin Afinidad -</button>-->
+                                        <button type="button" class="btn btn-default waves-effect waves-light" style="width: 90%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="load_localidades()">{{centro_selected_aux.localidad_legal.value || '-'}}</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;" ng-click="load_localidades()">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu scrollable-menu">
+                                            <li ng-repeat="item in localidades" value="{{item}}" ng-click="select_localidad(item)">
+                                                <a>{{item.value}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <label>Calle:</label>
+                                    <input type="text" class="form-control" ng-model="centro_selected_aux.direccion_legal_calle">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>Número:</label>
+                                    <input type="number" class="form-control" ng-model="centro_selected_aux.direccion_legal_numero">
+                                </div>
+
+                                <div class="col-xs-5">
+                                    <div class="form-group">
+                                        <label>Afinidad Tarifaria:</label>
+                                        <!--<input type="text" class="form-control" ng-model="centro_selected_aux.afinidad_tarifaria">-->
+                                        <div class="btn-group" style="width: 100%">
+                                            <!--<button type="button" class="btn btn-default waves-effect waves-light" ng-show='afinidad_selected == ""'>- Sin Afinidad -</button>-->
+                                            <button type="button" class="btn btn-default waves-effect waves-light" style="width: 90%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{centro_selected_aux.afinidad_tarifaria.value || '-'}}</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu scrollable-menu">
+                                                <li ng-repeat="item in afinidades_tarifarias" value="{{item}}" ng-click="select_afinidad(item)">
+                                                    <a>{{item.value}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-1">
+                                    <label>Editar</label>
+                                    <div class="btn-group" style="width: 100%" data-toggle="modal" data-target="#modalNuevaAfinidad" ng-click="menu_afinidad()">
+                                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top"
+                                                title="Crear Nueva Afinidad Tarifaria">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times" aria-hidden="true"
+                                style="padding-right: 10px"></span>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="update_centro(centro_selected_aux)">
+                        <span class="fa fa-check" aria-hidden="true"
+                                style="padding-right: 10px"></span>Enviar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="overlay" ng-show="loading_edit_modal">
+                <div class="col-xs-12">
+                    <h5 class="pull-right">{{loading_edit_modal_text}}</h5>
+                </div>
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+    </div>
+</div>

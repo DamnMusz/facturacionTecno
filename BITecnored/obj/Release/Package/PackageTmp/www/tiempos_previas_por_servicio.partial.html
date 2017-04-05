@@ -1,0 +1,254 @@
+<div class="row">
+    <div class="col-lg-12">
+        <h4><b>B: An&aacute;lisis de los Tiempos de Gesti&oacute;n de las Inspecciones Previas discriminadas por Tipo de Servicio</b></h4>
+    </div>
+</div>
+<br />
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-warning">
+            <div class="box-header">
+                <div class="col-lg-12 col-md-11">
+                    <i class="fa fa-bar-chart-o hidden-print"></i>
+                    <h3 class="box-title">B.1 Tiempo transcurrido entre el d&iacute;a de Inspecci&oacute;n y el d&iacute;a de entrega del informe a la C&iacute;a. (Fi-Fe)</h3>
+                </div>
+                <div class="box-tools pull-right hidden-print">
+                    <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                    <!--<button class="btn btn-default btn-sm" data-widget="remove"><i class="fa fa-times"></i></button>-->
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3><small>A Domicilio</small></h3>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.domicilio.mismoDia}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.domicilio.mismoDia" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">El mismo d&iacute;a</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaMismoDia()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.domicilio.en24hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.domicilio.en24hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 24 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaEn24Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.domicilio.en48hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.domicilio.en48hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 48 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaEn48Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.domicilio.en72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.domicilio.en72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaEn72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.domicilio.masDe72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.domicilio.masDe72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">M&aacute;s de 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaMasDe72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Total:</span> <span class="text-bold">{{totalDeInspeccionAInformeDomicilio}} </span>inspecciones
+                        </div>
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Promedio:</span> <span class="text-bold"> {{porcentajesTiemposParciales.tiempoDeInspeccionAInforme.domicilio.promedio}} </span>d&iacute;as
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <h3><small>Centros Tecnored</small></h3>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.centro.mismoDia}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.centro.mismoDia" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">El mismo d&iacute;a</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaMismoDia()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.centro.en24hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.centro.en24hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 24 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaEn24Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.centro.en48hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.centro.en48hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 48 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaEn48Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.centro.en72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.centro.en72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaEn72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeInspeccionAInforme.centro.masDe72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeInspeccionAInforme.centro.masDe72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">M&aacute;s de 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumInspEntregaMasDe72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Total:</span> <span class="text-bold">{{totalDeInspeccionAInformeCentro}} </span>inspecciones
+                        </div>
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Promedio:</span> <span class="text-bold"> {{porcentajesTiemposParciales.tiempoDeInspeccionAInforme.centro.promedio}} </span>d&iacute;as
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div class="box box-warning">
+            <div class="box-header">
+                <div class="col-lg-12 col-md-11">
+                    <i class="fa fa-bar-chart-o"></i>
+                    <h3 class="box-title">B.2 Tiempo transcurrido entre el d&iacute;a de Solicitud y el d&iacute;a de Inspecci&oacute;n. (Fi-Fe)</h3>
+                </div>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-default btn-sm" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                </div>
+            </div><!-- /.box-header -->
+            <div class="box-body">
+                <div class="col-lg-12">
+                    <h3><small>A Domicilio</small></h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.domicilio.mismoDia}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.domicilio.mismoDia" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">El mismo d&iacute;a</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspMismoDia()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.domicilio.en24hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.domicilio.en24hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 24 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspEn24Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.domicilio.en48hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.domicilio.en48hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 48 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspEn48Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.domicilio.en72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.domicilio.en72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspEn72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.domicilio.masDe72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.domicilio.masDe72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">M&aacute;s de 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspMasDe72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Total:</span> <span class="text-bold">{{totalDeSolicitudAInspeccionDomicilio}} </span>inspecciones
+                        </div>
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Promedio:</span> <span class="text-bold"> {{porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.domicilio.promedio}} </span>d&iacute;as
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <h3><small>Centros Tecnored</small></h3>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.centro.mismoDia}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.centro.mismoDia" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">El mismo d&iacute;a</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspMismoDia()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.centro.en24hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.centro.en24hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 24 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspEn24Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.centro.en48hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.centro.en48hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 48 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspEn48Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.centro.en72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.centro.en72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">Dentro de las 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspEn72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-center text-bold">
+                            {{tiempo_gestion_por_centro.tiempoDeSolicitudAInspeccion.centro.masDe72hs}}
+                        </div>
+                        <input knob model="porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.centro.masDe72hs" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+                        <div class="knob-label">M&aacute;s de 72 hs.</div>
+                        <div class="knob-label"><b>Acum. {{acumSolicInspMasDe72Hs()}}%</b></div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 text-center">
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Total:</span> <span class="text-bold">{{totalDeSolicitudAInspeccionCentro}} </span>inspecciones
+                        </div>
+                        <div class="row text-left">
+                            <span class="text-bold text-orange">Promedio:</span> <span class="text-bold"> {{porcentajesTiemposParciales.tiempoDeSolicitudAInspeccion.centro.promedio}} </span>d&iacute;as
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

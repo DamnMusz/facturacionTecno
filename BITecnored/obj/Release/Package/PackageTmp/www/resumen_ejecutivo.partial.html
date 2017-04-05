@@ -1,0 +1,107 @@
+﻿<link href="www/css/resumen_ejecutivo.css" rel="stylesheet" />
+
+<h3>Resumen ejecutivo mensual de aseguradoras<span class="small visible-print">{{filtro.periodo}}</span></h3>
+
+<div class="row no-print">
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+        <div class="input-group" style="width:100%">
+            <div class="form-group" style="width:100%">
+                <div class='input-group date' id='fechasResumen' style="width:100%">
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                    <input ng-disabled="is_loading()"
+                           type='text' class="form-control" ng-model="filtro.periodo" ng-change="GetTiemposGestionPorAseguradora()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-6 no-print">
+        <a class="waves-effect waves-light btn indigo white-text no-print" ng-click="imprimir()">
+            <i class="material-icons left">print</i>Imprimir
+        </a>
+        <a class="waves-effect waves-light btn green darken-2 white-text no-print" ng-click="a_csv()">
+            <i class="material-icons left">insert_drive_file</i>Exportar a CSV
+        </a>
+    </div>
+    <div class="col-xs-4 no-print" ng-show="is_loading()">
+        <h4><i class="fa fa-refresh fa-spin"></i>  {{loading_table_text}}</h4>
+    </div>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-bordered table-striped table-hover resumen_por_aseguradora">
+        <thead>
+            <tr>
+                <th>
+                    <a class="text-black" ng-click="sortBy('aseguradora')">Aseguradora</a>
+                    <span class="sortorder" ng-show="propertyName === 'aseguradora'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('inspeccionadas')">Inspeccionadas</a>
+                    <span class="sortorder" ng-show="propertyName === 'inspeccionadas'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="col_1 text-center">
+                    <a class="text-black" ng-click="sortBy('mismo_dia')">Mismo día</a>
+                    <span class="sortorder" ng-show="propertyName === 'mismo_dia'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="col_1 text-center">
+                    <a class="col_1 text-center text-black" ng-click="sortBy('en24hs')">1 día</a>
+                    <span class="sortorder" ng-show="propertyName === 'en24hs'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="col_1 text-center">
+                    <a class="col_1 text-center text-black" ng-click="sortBy('en48hs')">2 días</a>
+                    <span class="sortorder" ng-show="propertyName === 'en48hs'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('solicitadas')">Solicitadas Agda.</a>
+                    <span class="sortorder" ng-show="propertyName === 'solicitadas'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('porc_realizadas')">Solic. Realizadas</a>
+                    <span class="sortorder" ng-show="propertyName === 'porc_realizadas'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('prom_fotos')">Promedio Fotos</a>
+                    <span class="sortorder" ng-show="propertyName === 'prom_fotos'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('mas_4_fotos')">Más de 4 Fotos</a>
+                    <span class="sortorder" ng-show="propertyName === 'mas_4_fotos'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="col_2 text-center">
+                    <a class="col_2 text-center" ng-click="sortBy('realiz_2da')">Realizadas 2da instancia</a>
+                    <span class="sortorder" ng-show="propertyName === 'realiz_2da'" ng-class="{reverse: reverse}"></span>
+                </th>
+                <th class="col_2 text-center">
+                    <a class="col_2 text-center" ng-click="sortBy('sin_efecto_2da')">Sin Efecto 2da instancia</a>
+                    <span class="sortorder" ng-show="propertyName === 'sin_efecto_2da'" ng-class="{reverse: reverse}"></span>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="fila in resumen_por_aseguradora | orderBy:propertyName:reverse">
+                <td>{{fila.aseguradora}}</td>
+                <td class="text-center">{{fila.inspeccionadas}}</td>
+                <td class="col_1 text-center"
+                    ng-class="{'text-red': fila.mismo_dia<60, 'text-orange': (fila.mismo_dia>=60&&fila.mismo_dia<90), 'text-green': fila.mismo_dia>=90}">
+                    <b>{{fila.mismo_dia}}%</b>
+                </td>
+                <td class="col_1 text-center"
+                    ng-class="{'text-red': fila.en24hs<60, 'text-orange': (fila.en24hs>=60&&fila.en24hs<90), 'text-green': fila.en24hs>=90}">
+                    <b>{{fila.en24hs}}%</b>
+                </td>
+                <td class="col_1 text-center"
+                    ng-class="{'text-red': fila.en48hs<60, 'text-orange': (fila.en48hs>=60&&fila.en48hs<90), 'text-green': fila.en48hs>=90}">
+                    <b>{{fila.en48hs}}%</b>
+                </td>
+                <td class="text-center">{{fila.solicitadas}}</td>
+                <td class="text-center">{{fila.porc_realizadas}}%</td>
+                <td class="text-center">{{fila.prom_fotos}}</td>
+                <td class="text-center">{{fila.mas_4_fotos}}%</td>
+                <td class="col_2 text-center"><b>{{fila.realiz_2da}}%</b></td>
+                <td class="col_2 text-center"><b>   {{fila.sin_efecto_2da}}%</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

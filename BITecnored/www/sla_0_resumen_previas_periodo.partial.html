@@ -1,0 +1,51 @@
+<style>
+    #tabla_resumen > tbody > tr > td {
+     text-align: right; 
+     border: groove thin;
+     border-color: rgb(239, 239, 239);
+    }
+
+    #tabla_resumen > tbody > tr > th {
+     text-align: left; 
+     border: groove thin;
+     border-color: rgb(239, 239, 239);
+    }
+
+    #tabla_resumen  {
+        border: groove thin;
+        border-color: rgb(239, 239, 239);
+    }
+</style>
+
+<div class="row titulo-resumen-periodo">
+    <div class="col-xs-12">
+        <h3 class="no-margin">Resumen del per&iacute;odo</h3>
+    </div>
+</div>
+
+<div class="row margin-centered-10 no-margin-print">
+    <div class="col-xs-12 col-md-10 col-md-offset-1">
+        <table id="tabla_resumen" class="table table-bordered table-hover">
+            <tbody>
+                <tr>
+                    <th style="width:40%">REALIZADAS EN CENTRO</th>
+                    <td style="width:10%">{{realizadas_centro}}</td>
+                    <th style="width:40%">TOTAL SOLICITADAS POR AGENDA</th>
+                    <td style="width:10%">{{proporcion_realizadas[0].realizadas + proporcion_realizadas[0].sin_efecto}}</td>
+                </tr>
+                <tr>
+                    <th style="width:40%">REALIZADAS A DOMICILIO</th>
+                    <td style="width:10%">{{realizadas_domicilio}}</td>
+                    <th style="width:40%">SIN EFECTO</th>
+                    <td style="width:10%">{{proporcion_realizadas[0].sin_efecto}}</td>
+                </tr>
+                <tr>
+                    <th style="width:40%">TOTAL REALIZADAS</th>
+                    <td style="width:10%">{{total_de_inspeccion_a_informe()}}</td>
+                    <th style="width:40%">PROMEDIO DE FOTOS POR INSPECCI&Oacute;N</th>
+                    <td style="width:10%">{{round2(cantidad_de_fotos.promedio_total)}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

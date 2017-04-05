@@ -1,0 +1,70 @@
+﻿<!--<script type="text/javascript">
+  if(typeof appModule === 'undefined'){
+    document.location.href="/";
+  }
+</script>-->
+
+<div class="row">
+    <div class="col-xs-12">
+        <form action="api/FacturacionSiniestros" method="post">
+            <h3>Facturaci&oacute;n Siniestros</h3>
+            <input id="input-file" name="input" type="file" multiple class="file-loading">
+        </form>
+    </div>
+    
+    <!--<div class="col-lg-10 col-xs-10 pull-right" style="margin-top:10px;" ng-show="mostrar_hojas">
+        <label class="pull-right" style="margin-top:5px; margin-right:10px;">
+            <span>
+                Procesar 
+                <select id="cband" class="form-control" style="width:auto; display:inline-block;" ng-model="cantidad_hojas">
+                    <option value="1" selected>1 hoja</option>
+                    <option value="2">2 hojas</option>
+                    <option value="3">3 hojas</option>
+                    <option value="4">4 hojas</option>
+                    <option value="5">5 hojas</option>
+                    <option value="0">Todas</option>
+                </select>
+                (Las hojas del archivo se toman <span style="color:red;">de izquierda a derecha</span> en el Excel)
+            </span>
+        </label>
+    </div>-->
+
+    <div class="col-xs-12" ng-show="mostrar" style="margin-top:10px; margin-bottom:10px;">
+        <ul class="nav nav-pills">
+            <li ng-class="{active: tab===0}" style="cursor: pointer;"><a ng-click="tab=0">Facturaci&oacute;n autom&aacute;tica</a></li>
+            <li ng-class="{active: tab==1}" style="cursor: pointer;"><a ng-click="tab=1">Facturaci&oacute;n manual</a></li>
+        </ul>
+    </div>
+
+    <div class="col-xs-12" ng-show="mostrar && tab===0">
+        <div class="btn btn-primary" style="margin-bottom:10px;" ng-click="generar_txt_gecom()">Generar txt GECOM</div>
+        <div class="box box-warning collapsed-box" ng-repeat="siniestro in para_facturar">
+            <div class="box-header" style="background-color: snow">
+                <h4 class="box-title" style="margin-right:120px;"><small><span style="color:blue;">{{siniestro.nombre_ase}}</span>: {{siniestro.concepto}} Nro: <b>{{siniestro.nro_siniestro}}</b> - (<b>${{siniestro.importe}}</b> + IVA: {{Decimals2(siniestro.iva)}}%) -
+                Dominio: <b>{{siniestro.dominio}}</b> - Nombre y Apellido: <b>{{siniestro.nombre}}</b><span ng-show="siniestro.observacion != ''"> - Obs: <b style="color:red;">{{siniestro.observacion}}</b></span> - Analista: <b>{{siniestro.analista}}</b></small></h4>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-default btn-sm" data-widget="remove" style="color:red; font-weight:bold;" ng-click="mover_a_manual(siniestro)">Mover a manual <i class="fa fa-arrow-right" ></i></button>
+                </div>
+            </div><!-- /.box-header -->
+        </div>
+    </div>
+
+    <div class="col-xs-12" ng-show="mostrar && tab===1">
+        <div class="btn btn-default pull-right" style="margin-bottom:10px; color:green; font-weight:bold;" ng-click="mover_todos_a_automatico()"><i class="fa fa-arrow-left"></i> Mover todos a autom&aacute;tico</div>
+    </div>
+    <div class="col-xs-12" ng-show="mostrar && tab===1">
+        <div class="box box-danger collapsed-box" ng-repeat="siniestro in facturacion_manual">
+            <div class="box-header" style="background-color: snow">
+                <h4 class="box-title"  style="margin-right:120px;">
+                    <small>
+                        <span style="color:blue;">{{siniestro.nombre_ase}}</span>: {{siniestro.concepto}} Nro: <b>{{siniestro.nro_siniestro}}</b> - (<b>${{siniestro.importe}}</b> + IVA: {{Decimals2(siniestro.iva)}}%) -
+                        Dominio: <b>{{siniestro.dominio}}</b> - Nombre y Apellido: <b>{{siniestro.nombre}}</b><span ng-show="siniestro.observacion != ''"> - Obs: <b style="color:red;">{{siniestro.observacion}}</b></span> - Analista: <b>{{siniestro.analista}}</b>
+                    </small>
+                </h4>
+                <div class="box-tools pull-right">
+                    <button class="btn btn-default btn-sm" data-widget="remove" style="color:green; font-weight:bold;" ng-click="mover_a_automatico(siniestro)"><i class="fa fa-arrow-left"></i> Mover a autom&aacute;tico</button>
+                </div>
+            </div><!-- /.box-header -->
+        </div>
+    </div>
+</div>

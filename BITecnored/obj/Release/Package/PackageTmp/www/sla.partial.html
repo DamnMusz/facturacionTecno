@@ -1,0 +1,318 @@
+<style type="text/css">
+    #input-row {
+        box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+        border-radius: 0px;
+    }
+
+    .navbar {
+        border-radius: 0px;
+    }
+
+    .navbar-form {
+        border: hidden;
+    }
+
+    .box {
+        box-shadow: 0 5px 5px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+    }
+
+    hr {
+        margin-bottom: 2px;
+        height: 1px;
+        border: none;
+        color: lightgray;
+        background-color: lightgray;
+    }
+
+    .scrollable-menu {
+        height: auto;
+        max-height: 200px;
+        overflow-x: hidden;
+    }
+
+    p {
+        line-height: 1;
+        font-size: 14px;
+        margin: 5px;
+        text-align: justify;
+        text-justify: inter-word;
+    }
+
+    @media print  
+    {
+        .included-content{
+            page-break-inside: avoid;
+        }
+    }
+</style>
+
+<div class="row">
+    <div class="col-md-12" style="margin-right:10px;">
+        <nav class="navbar navbar-default navbar-lower" role="navigation">
+            <div class="col-md-12">
+                <div class="row" id="input-row">
+                    <form class="navbar-form" role="search">
+
+                        <div class="col-xs-12 col-sm-3 col-md-2 col-lg-2">
+                            <div class="input-group" style="width:100%">
+                                <div class="form-group" style="width:100%">
+                                    <div class='input-group date' id='fechasSLA' style="width:100%">
+                                        <span class="input-group-addon">
+                                            <span class="fa fa-calendar"></span>
+                                        </span>
+                                        <input type='text' class="form-control" ng-model="filtro.mes" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 col-md-2 col-lg-2 hidden-xs" style="padding-right:0px;">
+                            <div class="btn-group" style="width:100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width:80%">{{filtro.aseguradora.nombre || "Aseguradora"}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" style="width:15%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in lista_aseguradoras" value="{{item}}" ng-click="cambiarAseguradora(item)">
+                                        <a>{{item.nombre}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-3 col-md-2 col-lg-2 hidden-xs" style="padding-right:0px;">
+                            <div class="btn-group" style="width:100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width:80%">{{filtro.provincia.value || "Provincia"}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" style="width:15%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in lista_provincias" value="{{item}}" ng-click="cambiarProvincia(item)">
+                                        <a>{{item.value}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-6 visible-xs" style="padding-right:0px;padding-top:10px;">
+                            <div class="btn-group" style="width:100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width:80%">{{filtro.aseguradora.nombre || "Aseguradora"}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" style="width:15%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in lista_aseguradoras" value="{{item}}" ng-click="cambiarAseguradora(item)">
+                                        <a>{{item.nombre}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xs-6 visible-xs" style="padding-right:0px;padding-top:10px;">
+                            <div class="btn-group" style="width:100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width:80%">{{filtro.provincia.value || "Provincia"}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" style="width:15%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in lista_provincias" value="{{item}}" ng-click="cambiarProvincia(item)">
+                                        <a>{{item.value}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="row visible-xs" style="padding-bottom:10px;"></div>
+
+                        <div class="col-xs-0 col-sm-3 col-md-2 col-lg-2 pull-left hidden-xs hidden-sm" style="padding-right:0px;">
+                            <button type="button" class="btn btn-primary waves-effect waves-light" ng-click="buscar()">
+                                <i class="fa fa-search"></i> Generar Informe
+                            </button>
+                        </div>
+
+                        <div class="col-sm-3 visible-sm" style="padding-bottom:10px;">
+                            <button type="button" style="width:100%" class="btn btn-danger pull-right waves-effect waves-light"
+                                    ng-click="onModalOpen()" data-toggle="modal"
+                                    data-target="#myModal">
+                                <i class="fa fa-database"></i> Actualizar Per&iacute;odo
+                            </button>
+                        </div>
+
+                        <div class="col-xs-12 visible-xs" style="padding-bottom:10px;">
+                            <button type="button" style="width:100%;" class="btn btn-primary waves-effect waves-light" ng-click="buscar()">
+                                <i class="fa fa-search"></i> Generar Informe
+                            </button>
+                        </div>
+
+                        <div class="col-xs-0 col-sm-4 col-md-4 col-lg-4 pull-right hidden-xs hidden-sm">
+                            <button type="button" class="btn btn-danger pull-right waves-effect waves-light"
+                                    ng-click="onModalOpen()" data-toggle="modal"
+                                    data-target="#myModal">
+                                <i class="fa fa-database"></i> Actualizar Per&iacute;odo
+                            </button>
+                        </div>
+
+                        <div class="col-sm-12 visible-sm">
+                            <button type="button" style="width:100%;" class="btn btn-primary waves-effect waves-light" ng-click="buscar()">
+                                <i class="fa fa-search"></i> Generar Informe
+                            </button>
+                        </div>
+
+                        <div class="col-xs-12 visible-xs">
+                            <button type="button" style="width:100%" class="btn btn-danger pull-right waves-effect waves-light"
+                                    ng-click="onModalOpen()" data-toggle="modal"
+                                    data-target="#myModal">
+                                <i class="fa fa-database"></i> Actualizar Per&iacute;odo
+                            </button>
+                        </div>
+
+                        <div class="row"></div>
+                    </form>
+                </div>
+            </div>
+        </nav>
+
+        <div class="col-xs-1">
+            <div class="" ng-show="loading_tiempos_previas">
+                <h4 class="pull-right"><i class="fa fa-refresh fa-spin"></i>  Cargando...</h4>
+            </div>
+        </div>
+
+        <div ng-show="mostrar === true"  id="sla_content">
+            <div class="row no-print">
+                <div class="col-xs-12">
+                    <a ng-click="imprimir()" class="btn btn-default" id="no-scrolling"><i class="fa fa-print"></i> Imprimir</a>
+                </div>       
+            </div>
+            <div class="row">
+                <div class="pull-right divHeaderRight resize-smaller"><img class="" src="../img/logos/logo_tecno.png" /></div>
+                <div class="pull-left divHeaderLeft resize-smaller"><img class="" src="../img/logos/{{filtro.aseguradora.nombre}}.png" onerror="this.style.display='none'"/></div>
+                <div class="col-xs-12">
+                    <div class="row visible-print" style="margin-bottom:20px;"></div>
+                    <div class="visible-print"><hr id="printableHR"/></div>
+                    <h1>INDICADORES DEL SERVICIO DE INSPECCIONES PREVIAS</h1>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div style="font-size: 18px;">
+                        <div class="col-xs-4" style="padding-left: 0px;">Aseguradora: <b>{{filtro.aseguradora.nombre}}</b></div>
+                        <div class="col-xs-4 text-center center-print" ng-show="filtro.provincia.value != 'Todas'"><b>{{filtro.provincia.value}}</b></div>
+                        <div class="col-xs-4 text-center center-print" ng-show="filtro.provincia.value == 'Todas'"><b>Todo el pa&iacute;s</b></div>
+                        <div class="col-xs-3 col-print-4 right-align right-print">Per&iacute;odo: <b>{{filtro.mes}}</b></div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="row">
+                <div id="resumen_previas_periodo" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_0_resumen_previas_periodo.partial.html'"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="tiempos_previas_plazos" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_1_tiempos_previas_plazos.partial.html'"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="tiempos_previas_general" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_2_tiempos_previas_general.partial.html'"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="cantidad_de_fotos" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_3_cantidad_de_fotos.partial.html'"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="totales_realizacion_solicitudes" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_4_totales_realizacion_solicitudes.partial.html'"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="no_concretadas_ultimo_periodo" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_5_no_concretadas_ultimo_periodo.partial.html'"></div>
+                </div>
+            </div>
+            <div class="row">
+                <div id="no_concretadas_dia_pactado" class="col-lg-12 included-content">
+                    <div ng-include="'www/sla_6_no_concretadas_dia_pactado.partial.html'"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal -->
+<div id="myModal" class="modal modal-default fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content box">
+            <div class="modal-header">
+                <h4 class="modal-title">
+                    <i class="fa fa-bar-chart"> Obtener estad&iacute;sticas mensuales</i>
+                </h4>
+            </div>
+            <div class="modal-body box-body">
+                <div class="row" style="padding-right: 10px">
+                    <div class="row">
+                        <div class="col-lg-12"  style="margin-left: 15px">
+                            Per&iacute;odo:
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="col-lg-4 col-xs-8" style="padding-left:15px;">
+                                
+                                <div class='input-group date' id='fechasBase'>
+                                    <span class="input-group-addon">
+                                        <span class="fa fa-calendar"></span>
+                                    </span>
+                                    <input type='text' class="form-control" ng-model="mesBaseSLA" />
+                                </div>
+                            </div>
+                            <div class="col-lg-4 col-xs-4">
+                                <button type="button" class="btn btn-primary waves-effect waves-light" ng-click="getBaseSLA()">
+                                    <span class="fa fa-database" aria-hidden="true"
+                                          style="padding-right: 10px"></span>Iniciar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times" aria-hidden="true"
+                              style="padding-right: 10px"></span>Cerrar
+                    </button>
+                </div>
+            </div>
+            <div class="overlay" ng-show="sla_generator_in_progress">
+                <div class="col-xs-12">
+                    <h5 class="pull-right"><b>{{sla_generator_in_progress_text}}</b></h5>
+                </div>
+                <i class="fa fa-refresh fa-spin"></i>
+                <div class="col-lg-4 col-xs-4 pull-right">
+                    <button type="button" class="btn btn-danger waves-effect waves-light pull-right btn-sm" ng-click="cancelBaseSLA()">
+                        <span class="fa fa-times" aria-hidden="true"
+                              style="padding-right: 10px"></span>Cancelar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--<script>
+        $('#no-scrolling').hover(function () {
+            $('html, body').css('overflow', 'hidden');
+        }, function () {
+            $('html, body').css('overflow', 'auto');
+        });
+</script>-->

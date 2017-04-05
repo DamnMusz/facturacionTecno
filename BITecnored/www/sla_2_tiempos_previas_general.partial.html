@@ -1,0 +1,157 @@
+<div class="row" style="margin-bottom: 0.5%; margin-top: 20px;">
+    <div class="col-xs-12">
+        <h3 class="no-margin">2. Distribuci&oacute;n de d&iacute;as h&aacute;biles transcurridos entre la realizaci&oacute;n de la inspecci&oacute;n y el env&iacute;o del informe</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-print-12 col-xs-12" style="margin-bottom: 1%;">
+        <div class="col-print-6 col-xs-3">
+            <span>Total del per&iacute;odo:</span> <span class="text-bold">{{total_de_inspeccion_a_informe()}} inspecciones</span>
+        </div>
+        <div class="col-print-4 col-xs-3">
+            <span>Promedio:</span> <span class="text-bold"> {{round2(tiempo_gestion.cant_insp_pub.promedio)}} d&iacute;a</span><span class="text-bold" ng-hide="tiempo_gestion.cant_insp_pub.promedio==1">s</span>
+        </div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_insp_pub.mismo_dia}}
+        </div>
+        <input knob model="acumInspEntregaMismoDia()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">El mismo d&iacute;a</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_insp_pub.en_24hs}}
+        </div>
+        <input knob model="acumInspEntregaEn24Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">Dentro de las 24 hs.</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_insp_pub.en_48hs}}
+        </div>
+        <input knob model="acumInspEntregaEn48Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">Dentro de las 48 hs.</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_insp_pub.en_72hs}}
+        </div>
+        <input knob model="acumInspEntregaEn72Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">Dentro de las 72 hs.</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_insp_pub.mas_de_72hs}}
+        </div>
+        <input knob model="acumInspEntregaMasDe72Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">M&aacute;s de 72 hs.</div>
+    </div>
+</div>
+
+<div class="row" style="margin-bottom: 0.5%; margin-top: 30px;">
+    <div class="col-xs-12">
+        <h3 class="no-margin">3. Distribuci&oacute;n de d&iacute;as h&aacute;biles transcurridos entre la fecha de solicitud y la fecha de inspecci&oacute;n</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-print-12 col-xs-12" style="margin-bottom: 1%;">
+        <div class="col-print-6 col-xs-3">
+            <span>Total del per&iacute;odo:</span> <span class="text-bold">{{total_de_solicitud_a_inspeccion()}} inspecciones</span>
+        </div>
+        <div class="col-print-4 col-xs-3">
+            <span>Promedio:</span> <span class="text-bold"> {{round2(tiempo_gestion.cant_sol_insp.promedio)}} d&iacute;a</span><span class="text-bold" ng-hide="tiempo_gestion.cant_sol_insp.promedio==1">s</span>
+        </div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_sol_insp.mismo_dia}}
+        </div>
+        <input knob model="acumSolicInspMismoDia()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">El mismo d&iacute;a</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_sol_insp.en_24hs}}
+        </div>
+        <input knob model="acumSolicInspEn24Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">Dentro de las 24 hs.</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_sol_insp.en_48hs}}
+        </div>
+        <input knob model="acumSolicInspEn48Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">Dentro de las 48 hs.</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_sol_insp.en_72hs}}
+        </div>
+        <input knob model="acumSolicInspEn72Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">Dentro de las 72 hs.</div>
+    </div>
+    <div class="col-md-15 col-sm-2 col-xs-4 col-lg-push-0 col-md-push-0 col-sm-push-0 col-xs-push-0 col-print-15 text-center" id="resize-knob">
+        <div class="row text-center text-bold">
+            {{tiempo_gestion.cant_sol_insp.mas_de_72hs}}
+        </div>
+        <input knob model="acumSolicInspMasDe72Hs()" data-readOnly="true" data-step="0.1" class="knob" data-thickness="0.3" data-width="70" data-height="70" data-fgcolor="#00a65a" type="text">
+        <div class="knob-label">M&aacute;s de 72 hs.</div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        /* jQueryKnob */
+        $(".knob").knob({
+            'readOnly': true,
+            'format': function (value) {
+                return value + '%';
+            },
+            draw: function () {
+                // "tron" case
+                if (this.$.data('skin') == 'tron') {
+                    var a = this.angle(this.cv)  // Angle
+                            , sa = this.startAngle          // Previous start angle
+                            , sat = this.startAngle         // Start angle
+                            , ea                            // Previous end angle
+                            , eat = sat + a                 // End angle
+                            , r = true;
+
+                    this.g.lineWidth = this.lineWidth;
+
+                    this.o.cursor
+                            && (sat = eat - 0.3)
+                            && (eat = eat + 0.3);
+
+                    if (this.o.displayPrevious) {
+                        ea = this.startAngle + this.angle(this.value);
+                        this.o.cursor
+                                && (sa = ea - 0.3)
+                                && (ea = ea + 0.3);
+                        this.g.beginPath();
+                        this.g.strokeStyle = this.previousColor;
+                        this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sa, ea, false);
+                        this.g.stroke();
+                    }
+
+                    this.g.beginPath();
+                    this.g.strokeStyle = r ? this.o.fgColor : this.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth, sat, eat, false);
+                    this.g.stroke();
+
+                    this.g.lineWidth = 2;
+                    this.g.beginPath();
+                    this.g.strokeStyle = this.o.fgColor;
+                    this.g.arc(this.xy, this.xy, this.radius - this.lineWidth + 1 + this.lineWidth * 2 / 3, 0, 2 * Math.PI, false);
+                    this.g.stroke();
+
+                    return false;
+                }
+            }
+        });
+        /* END JQUERY KNOB */
+    });
+</script>

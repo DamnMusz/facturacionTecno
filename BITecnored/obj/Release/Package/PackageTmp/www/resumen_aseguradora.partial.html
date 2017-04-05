@@ -1,0 +1,148 @@
+﻿<link href="www/css/resumen_ejecutivo.css" rel="stylesheet" />
+
+<h3>Detalle ejecutivo por aseguradora</h3>
+
+<div class="row no-print">
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+        <div class="input-group" style="width:100%">
+            <div class="form-group" style="width:100%">
+                <div class='input-group date' id='fechasResumen' style="width:100%">
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                    <input type='text' class="form-control" ng-model="filtro.periodo" ng-change="GetTiemposGestionPorAseguradora()" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+        <div class="btn-group" style="width:100%">
+            <button type="button" class="btn btn-default waves-effect waves-light" style="width:80%">{{filtro.aseguradora.nombre || "Aseguradora"}}</button>
+            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" style="width:15%" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <span class="caret"></span>
+                <span class="sr-only">Toggle Dropdown</span>
+            </button>
+            <ul class="dropdown-menu scrollable-menu">
+                <li ng-repeat="item in lista_aseguradoras" value="{{item}}" ng-click="cambiarAseguradora(item)">
+                    <a>{{item.nombre}}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="col-xs-1 no-print">
+        <div class="btn-floating waves-effect waves-light teal no-print" ng-click="generar()"
+                data-toggle="tooltip" data-placement="top" title="Ver estadísticas">
+            <i class="material-icons">assessment</i>
+        </div>
+    </div>
+    <div class="col-xs-4 no-print" ng-show="loading_table == true">
+        <h4><i class="fa fa-refresh fa-spin"></i>  {{loading_table_text}}</h4>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div id='myChart'></div>
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div style="height:350px; width:100%; background-color:lightgray; margin-top:100px;">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--<script>
+    var myConfig = {
+        type: "area",
+        stacked: true,
+        title: {
+            text: "Inspecciones por aseguradora",
+            fontColor: "#424242",
+            adjustLayout: true,
+            marginTop: 15
+        },
+        subtitle: {
+            text: "Sancor Seguros",
+            fontColor: "#616161",
+            adjustLayout: true,
+            marginTop: 45
+        },
+        plot: {
+            aspect: "spline",
+            alphaArea: 0.6
+        },
+        plotarea: {
+            margin: "dynamic"
+        },
+        tooltip: { visible: false },
+        scaleY: {
+            short: true,
+            shortUnit: 'k',
+            lineColor: "#AAA5A5",
+            tick: {
+                lineColor: "#AAA5A5"
+            },
+            item: {
+                fontColor: "#616161",
+                paddingRight: 5
+            },
+            guide: {
+                lineStyle: "dotted",
+                lineColor: "#AAA5A5"
+            },
+            label: {
+                text: "Inspecciones",
+                fontColor: "#616161"
+            }
+        },
+        scaleX: {
+            lineColor: "#AAA5A5",
+            labels: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+            tick: {
+                lineColor: "#AAA5A5"
+            },
+            item: {
+                fontColor: "#616161",
+                paddingTop: 5
+            },
+            label: {
+                text: "2016",
+                fontColor: "#616161"
+            }
+        },
+        crosshairX: {
+            lineColor: "#AAA5A5",
+            plotLabel: {
+                backgroundColor: "#EBEBEC",
+                borderColor: "#AAA5A5",
+                borderWidth: 2,
+                borderRadius: 2,
+                thousandsSeparator: ',',
+                fontColor: '#616161'
+            },
+            scaleLabel: {
+                backgroundColor: "#EBEBEC",
+                borderColor: "#AAA5A5",
+                fontColor: "#424242"
+            }
+        },
+        series: [
+            {
+                values: [3435, 3035, 2735, 2635, 2435, 2375, 2035, 1997, 2003, 1775, 1805, 1807],
+                text: "Inspecciones",
+                backgroundColor: "#2196F3",
+                lineColor: "#2196F3",
+                marker: {
+                    backgroundColor: "#1565C0",
+                    borderColor: "#1565C0"
+                }
+            }
+        ]
+    };
+
+    zingchart.render({
+        id: 'myChart',
+        data: myConfig
+    });
+</script>-->

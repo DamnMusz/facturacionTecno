@@ -1,0 +1,208 @@
+﻿<style>
+    @keyframes fab-centros-animation {
+        0% {
+            background-color: blue;
+            left: 0px;
+            top: 0px;
+        }
+
+        50% {
+            background-color: blue;
+            left: 200px;
+            top: 0px;
+        }
+
+        100% {
+            background-color: orangered;
+            left: 0px;
+            top: 0px;
+        }
+    }
+
+    .fab-centros {
+        width: 100px;
+        height: 100px;
+        background-color: orangered;
+        animation-name: fab-centros-animation;
+        animation-duration: 2s;
+    }
+
+    #sortable:hover,
+    .fc-event:hover {
+        box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.38), 0 3px 6px 0 rgba(0, 0, 0, 0.35);
+    }
+
+    #tarifario > tbody > tr > th, #tarifario > tbody > tr > td
+    {
+        cursor: default;
+    }
+
+    #sortable,
+    .fc-content,
+    .external-event,
+    #color-chooser {
+        cursor: pointer;
+    }
+
+    #FacturacionCentrosTarifas{
+        padding-left:10px;
+        padding-right:10px;
+    }
+
+</style>
+
+<div class="row" id="FacturacionCentrosTarifas">
+    <div class="col-md-3">
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h4 class="box-title">Tarifas Disponibles</h4>
+            </div>
+            <div class="box-body">
+                <!-- the events -->
+                <div id="external-events">
+                    <div class="external-event tooltip" ng-repeat="tarifa in tarifas_vigentes" ng-style="get_style_from_color_2(tarifa.color)" ng-click="aplicar_tarifa(tarifa)">
+                        {{tarifa.titulo}}
+                        <span class="tooltiptext">
+                            <span>{{tarifa.titulo}}</span>
+                            <br />
+                            <span>${{tarifa.monto}}</span>
+                            <br ng-show="tarifa.descripcion != ''"/>
+                            <span ng-show="tarifa.descripcion != ''">{{tarifa.descripcion}}</span>
+                            <br />
+                            <span>Desde:  {{format_date(tarifa.periodo_desde)}}</span>
+                            <br />
+                            <span>Hasta:  {{format_date(tarifa.periodo_hasta)}}</span>
+                            <br />
+                            -- Click para aplicar a los centros seleccionados --
+                        </span>
+                    </div>
+                </div>
+            </div><!-- /.box-body -->
+        </div><!-- /. box -->
+
+        <div class="box box-solid">
+            <div class="box-header with-border">
+                <h3 class="box-title">Crear Tarifa</h3>
+            </div>
+            <div class="box-body" style="padding-left:2px;padding-right:2px;">
+                <div class="col-lg-12">
+                    <div class="btn-group" style="width: 100%; margin-bottom: 10px;">
+                        <ul class="fc-color-picker" id="color-chooser">
+                            <li ng-repeat="color in available_colors"><a ng-style="get_style_from_color(color)" ng-click="select_color(color)"><i class="fa fa-square"></i></a></li>
+                        </ul>
+                    </div><!-- /btn-group -->
+                </div>
+
+                <div class="col-lg-8">
+                    <label>Nombre</label>
+                    <input ng-model="nueva_tarifa.titulo" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="col-lg-4">
+                    <label>Monto</label>
+                    <div class="input-group">
+                        <span class="input-group-addon">$</span>
+                        <input class="form-control" ng-model="nueva_tarifa.monto" type="text">
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <label>Desde</label>
+                    <div class="input-group">
+                        <div class="form-group">
+                            <div class='input-group date' id='fecha_desde_tarifa'>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                                <input type='text' class="form-control" ng-model="nueva_tarifa.periodo_desde" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                    <label>Hasta</label>
+                    <div class="input-group">
+                        <div class="form-group">
+                            <div class='input-group date' id='fecha_hasta_tarifa'>
+                                <span class="input-group-addon">
+                                    <span class="fa fa-calendar"></span>
+                                </span>
+                                <input type='text' class="form-control" ng-model="nueva_tarifa.periodo_hasta" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <label>Descripción</label>
+                    <input ng-model="nueva_tarifa.descripcion" type="text" class="form-control" placeholder="">
+                </div>
+                <div class="col-lg-12" style="margin-top:10px;">
+                    <button type="button" class="btn btn-primary btn-flat pull-right" ng-style="get_style_from_color_2(selected_color)" ng-click="add_event_tarifa(aux_titulo, selected_color)"><i class="fa fa-plus"> Crear Nueva Tarifa</i></button>
+                </div>
+            </div>
+        </div>
+    </div><!-- /.col -->
+    <div class="col-md-9">
+        <div class="box box-solid">
+            <div class="box-body no-padding">
+                <!-- THE CALENDAR -->
+                <div class="table-responsive">
+                    <table st-table="peritos" class="table table-bordered" id="tarifario">
+                        <thead>
+                            <tr>
+                                <th><i class="fa fa-check"></i></th>
+                                <th id="sortable">ID</th>
+                                <th id="sortable">Nombre</th>
+                                <th id="sortable">Afinidad Tarifaria</th>
+                                <th ng-repeat="periodo in periodos_tarifario">{{periodo.toString().substring(4,6)}}/{{periodo.toString().substring(0,4)}}</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr ng-repeat="centro in tarifas_centros" ng-bind-html="get_tarifario(centro) | sanitize"></tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div><!-- /.box-body -->
+            <div class="box-footer">
+                <div class="form-group pull-left">
+                    <button type="button" class="btn waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top" title="Período Anterior"><b><</b></button>
+                    <button type="button" class="btn waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top" title="Período Siguiente"><b>></b></button>
+                </div>
+            </div>
+
+        </div><!-- /. box -->
+    </div><!-- /.col -->
+</div><!-- /.row -->
+
+<script type="text/javascript">
+    $(function () {
+        var year = (new Date).getFullYear();
+        var month = (new Date).getMonth();
+        $('#fecha_desde_tarifa').datepicker({
+            viewMode: 'months',
+            minViewMode: 'months',
+            autoclose: true,
+            startDate: new Date(year, month, 01)
+        }
+        );
+    });
+    $(function () {
+        var year = (new Date).getFullYear();
+        var month = (new Date).getMonth();
+        $('#fecha_hasta_tarifa').datepicker({
+            viewMode: 'months',
+            minViewMode: 'months',
+            autoclose: true,
+            startDate: new Date(year, month, 01)
+        }
+        );
+    });
+
+    function select_row_centro(id) {
+        if ($(id).html() == "") {
+            angular.element($('#FacturacionCentrosTarifas')).scope().select_tarifa_row(id.id);
+            $(id).html("<i class='fa fa-check'></i>");
+        } else {
+            $(id).html("");
+        }
+    }
+</script>

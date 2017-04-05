@@ -1,0 +1,153 @@
+﻿<style>
+    @keyframes fab-centros-animation {
+    0%   {background-color: blue; left:0px; top:0px;}
+    50%  {background-color: blue; left:200px; top:0px;}
+    100% {background-color: orangered; left:0px; top:0px;}
+    /*0%   {background-color: blue; transform: scale(1); opacity: 1;}
+    20%  {background-color: blue; transform: scale(1.25); opacity: 0.75;}
+    100% {background-color: orangered; transform: scale(1); opacity: 1;}*/
+    }
+
+    .fab-centros {
+        width: 100px;
+        height: 100px;
+        background-color: orangered;
+        animation-name: fab-centros-animation;
+        animation-duration: 2s;
+    }
+
+    .table-responsive {
+        box-shadow: 0 8px 8px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12);
+    }
+
+    .hover-shadow:hover {
+        box-shadow: 0 4px 4px 0 rgba(0,0,0,.14);
+    }
+
+
+    tr,
+    td,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tbody > tr > td,
+    .pagination>li>a:focus,
+    .pagination>li>a:hover,
+    .pagination>li>span:focus,
+    .pagination>li>span:hover {
+        cursor: default;
+    }
+
+</style>
+
+<div class="col-xs-12">
+    <div class="alert alert-danger" ng-show="hay_centros_incompletos">
+        <h4><i class="icon fa fa-ban"></i> Centros incompletos!</h4>
+        Hay <b>{{cantidad_centros_incompletos}}</b> centros que no tienen la información mínima necesaria para la facturación. Complete la información o deshabilitelos para poder facturar.
+        <span id="filtrar_incompletos" ng-click="toogle_view_centros_incompletos()">{{viendo_incompletos ? "Quitar filtro" : "Filtrar"}} centros incompletos.</span>
+    </div>
+
+    <div>
+        <div class="pull-left">
+            <h3>Centros de Inspección</h3>
+        </div>
+        
+        <div class="form-group pull-right hidden">
+            <a class="btn-floating waves-effect waves-light red pull-right" href="http://inspecciones.tecno-red.com.ar/demo/admin.asp?p=adm_centros.asp"
+               data-toggle="tooltip" data-placement="top" title="Crear Nuevo Centro"><i class="material-icons">add</i></a>
+            <a class="btn-floating waves-effect waves-light blue pull-right" ng-click="search_modal()"
+               data-toggle="tooltip" data-placement="top" title="Buscar Centro"><i class="material-icons">search</i></a>
+            <a class="btn-floating waves-effect waves-light pull-right" ng-click="toogle_solo_centros_activos()" ng-show="!viendo_incompletos"
+               data-toggle="tooltip" data-placement="top" title="{{txt_ocultar_mostrar}} centros dados de baja"
+               ng-class="{'green': solo_centros_activos, 'bg-maroon': !solo_centros_activos}"><i class="material-icons">{{solo_centros_activos ? "visibility" : "visibility_off"}}</i></a>
+        </div>
+    </div>
+    <div class="col-xs-12" ng-show="busqueda_centros_aplicada.length > 0">
+        <label>Búsqueda por: </label>
+        <span ng-repeat="criterio in busqueda_centros_aplicada" class="label label-default" style="margin-right: 5px;">
+            <b style="color:darkcyan;">{{criterio}}:</b> {{to_str_value(busqueda[criterio])}}
+        </span>
+
+    </div>
+    <div class="row">
+        <div class="col-xs-12 box-body">
+            <div class="table-responsive">
+                <table st-table="peritos" class="table table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Nombre(Fantasía)</th>
+                            <th>CUIT</th>
+                            <th>Razón Social</th>
+                            <th>Propio</th>
+                            <th>Provincia(Legal)</th>
+                            <th>Localidad(Legal)</th>
+                            <th>Dirección(Legal)</th>
+                            <th>Activo</th>
+                            <th>Afinidad Tarifaria</th>
+                            <th>Factura</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="centro in centros">
+                            <td>{{centro.id}}</td>
+                            <td>{{centro.nombre_centro}}</td>
+                            <td>{{centro.nombre_fantasia}}</td>
+                            <td><span ng-if="centro.cuit != -1">{{centro.cuit}}</span></td>
+                            <td>{{centro.razon_social}}</td>
+                            <td ng-if="centro.propio == true"><span class="badge bg-blue" style="width:70px;">Tecnored</span></td>
+                            <td ng-if="centro.propio == false"><span class="badge bg-maroon" style="width:70px;">Externo</span></td>
+                            <td ng-if="centro.propio != true && centro.propio != false"><span class="badge bg-gray" style="width:90px;">Sin Especificar</span></td>
+                            <td>{{centro.provincia_legal.value}}</td>
+                            <td>{{centro.localidad_legal.value}}</td>
+                            <td><span>{{centro.direccion_legal_calle}}</span> <span ng-if="centro.direccion_legal_numero > 0">{{centro.direccion_legal_numero}}</span></td>
+                            <td ng-if="centro.activo == true"><span class="badge bg-olive" style="width:70px;">Activo</span></td>
+                            <td ng-if="centro.activo == false"><span class="badge bg-maroon" style="width:70px;">Inactivo</span></td>
+                            <td ng-if="centro.activo != true && centro.activo != false"><span class="badge bg-gray" style="width:90px;">Sin Especificar</span></td>
+                            <td>
+                                <b>{{centro.afinidad_tarifaria.value}}</b>
+                            </td>
+                            <td ng-if="centro.tipo_factura == 'A'"><span class="badge bg-navy" style="width:20px;">A</span></td>
+                            <td ng-if="centro.tipo_factura == 'B'"><span class="badge bg-orange" style="width:20px;">B</span></td>
+                            <td ng-if="centro.tipo_factura == 'C'"><span class="badge bg-maroon" style="width:20px;">C</span></td>
+                            <td ng-if="centro.tipo_factura == '-'"><span class="badge bg-gray" style="width:20px;">-</span></td>
+                            <td>
+                                <a class="waves-effect waves-light hover-shadow" data-toggle="modal" data-target="#modalEditRow" ng-click="select_centro(centro);">
+                                    <i class="material-icons left">edit</i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-7">
+                    <div id="tablaPeritos_paginate" class="dataTables_paginate paging_simple_numbers pull-right">
+                        <ul class="pagination">
+                            <li id="tablaPeritos_previous" class="paginate_button previous" ng-class="{disabled: actual_page == 1}" ng-click="actual_page == 1||change_page(actual_page-1)">
+                                <a tabindex="0" data-dt-idx="0" aria-controls="tablaPeritos">Anterior</a>
+                            </li>
+                            <li class="paginate_button" ng-repeat="num in paginas" ng-class="{active: actual_page == num}" ng-click="change_page(num)">
+                                <a tabindex="0" data-dt-idx="{{num}}" aria-controls="tablaPeritos">{{num}}</a>
+                            </li>
+                            <li id="tablaPeritos_next" class="paginate_button next" ng-class="{disabled: actual_page == cantidad_paginas}" ng-click="actual_page == cantidad_paginas||change_page(actual_page+1)">
+                                <a tabindex="0" data-dt-idx="0" aria-controls="tablaPeritos">Siguiente</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-12">
+                    <b class="pull-right">Mostrando {{centros.length}} de {{cantidad_centros}} resultados</b>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="overlay" ng-show="loading_table">
+        <div class="col-xs-12">
+            <br />
+            <h3 class="pull-right">{{loading_table_text}}</h3>
+        </div>
+        <i class="fa fa-refresh fa-spin"></i>
+    </div>
+</div>

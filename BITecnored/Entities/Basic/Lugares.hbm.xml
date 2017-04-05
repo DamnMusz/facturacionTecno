@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.Basic">
+  <class name="Lugares" table="lugares">
+    <id name="id" column="id"></id>
+    <property name="cod_provincia" column="cod_provincia"/>
+  </class>
+</hibernate-mapping>

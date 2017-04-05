@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.SLA">
+  <class name="InspeccionSLA_AnexoAgenda" table="sla">
+    <id name="id" column="id_triki"></id>
+    <property name="id_centro" column="id_centro_agenda"/>
+    <property name="id_inspector" column="inspector"/>
+    <property name="fecha_solicitud" column="fecha_solicitud"/>
+  </class>
+</hibernate-mapping>

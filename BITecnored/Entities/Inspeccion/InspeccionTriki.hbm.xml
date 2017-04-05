@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.Inspeccion">
+  <class name="InspeccionTriki" table="inspeccion">
+    <id name="id"></id>
+    <property name="aseguradora" column="id_aseguradora"/>
+    <property name="inspector" />
+    <property name="dominio" />
+    <property name="fec_envio" />
+    <property name="tipo_inspeccion" />
+    <one-to-one constrained="false" name="otros" class="InspeccionTrikiOtros"/>
+    <one-to-one constrained="false" name="data" class="InspeccionTrikiData"/>
+  </class>
+</hibernate-mapping>

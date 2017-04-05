@@ -1,0 +1,51 @@
+﻿.thead,
+.tr,
+.td,
+.table-bordered > tbody > tr > td {
+    border-radius: 3px;
+}
+
+.th,
+.table>thead:first-child>tr:first-child>th {
+    margin-left: 0;
+    margin-right: 0;
+    border-left-color: transparent;
+    border-right-color: transparent;
+}
+
+.table > thead:first-child > tr:first-child > th:hover {
+    cursor: pointer;
+}
+
+.text-left {
+    text-align: left;
+}
+
+.col_1 {
+    width: 80px;
+}
+
+.col_2 {
+    background-color:#00695c;
+    color: white;
+    width: 150px;
+}
+
+.col_2:hover {
+    color: white;
+}
+
+.btn-floating {
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.table>tbody>tr>td,
+.table>tbody>tr>th,
+.table>tfoot>tr>td,
+.table>tfoot>tr>th,
+.table>thead>tr>td,
+.table>thead>tr>th {
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

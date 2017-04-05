@@ -1,0 +1,431 @@
+﻿        body {
+            margin-bottom: 0px;
+            padding-bottom: 0px;
+        }
+
+        .no-margin {
+            margin: 0;
+        }
+
+        .margin-centered-10 {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+
+        .margin-centered-20 {
+            margin-left: 20%;
+            margin-right: 20%;
+        }
+
+        .margin-bottom-5 {
+            margin-bottom: 5%;
+        }
+
+        .margin-bottom-10 {
+            margin-bottom: 10%;
+        }
+
+        .skin-yellow .wrapper, .skin-yellow .main-sidebar, .skin-yellow .left-side {
+            background-image: url('img/background/binding_dark.png');
+            background-repeat: repeat;
+        }
+
+        .skin-yellow .sidebar-menu > li.header {
+            color: white;
+            background-color: rgba(26, 34, 38, 0.54);
+        }
+
+        .skin-yellow .sidebar-menu > li:hover > a, .skin-yellow .sidebar-menu > li.active > a {
+            color: #ffffff;
+            background: none;
+            border-left-color: #f39c12;
+            box-shadow: 0px 0px 5px 5px rgba(255,255,255,.2) inset;
+            transition: box-shadow 0.5s ease-in-out;
+        }
+
+        .skin-yellow .sidebar-menu > li > .treeview-menu {
+            margin: 0 1px;
+            background: none;
+            background-color: rgba(0, 0, 0, 0.30);
+        }
+
+        .main-header,
+        .alert,
+        .box,
+        .dropdown-menu {
+            box-shadow: 0 8px 8px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+        }
+
+	    .ng-invalid.ng-dirty {
+	        border-color: #dd4b39;
+	        box-shadow: none;
+	    }
+
+        .skin-yellow .left-side {
+            background-color: ghostwhite;
+        }
+
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+
+        #my-top-navbar,
+        .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
+            background-color: #FF8F00;
+        }
+
+        #my-logo,
+        .skin-yellow .main-header .navbar .sidebar-toggle:hover {
+            background-color: #F57F17;
+        }
+
+        .modal-header {
+            background-color: #03A9F4;
+            border-color: #03A9F4;
+            color: white;
+            box-shadow: 0 3px 3px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);
+        }
+
+        .modal-footer {
+            background-color: #F5F5F5;
+            border-color: #03A9F4;
+        }
+
+        .btn-default:hover,
+        .btn-default:focus,
+        .btn-default.focus,
+        .btn-default.active,
+        .btn-default:active,
+        label {
+            color: #03A9F4;
+        }
+
+        .scrollable-menu {
+            height: auto;
+            max-height: 200px;
+            overflow-x: hidden;
+        }
+
+        .btn-floating {
+          box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.38), 0 3px 6px 0 rgba(0, 0, 0, 0.35);
+        }
+
+        .z-depth-1-half, .btn:hover, .btn-large:hover {
+          box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.28), 0 5px 8px 0 rgba(0, 0, 0, 0.25), 0 5px 8px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-floating:hover {
+          box-shadow: 0 10px 11px 0 rgba(0, 0, 0, 0.28), 0 10px 15px 0 rgba(0, 0, 0, 0.25), 0 10px 15px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        /* Tooltip container */
+        .tooltip {
+            position: relative;
+            border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+        }
+
+        .tooltiptext {
+            display: inline-block;
+        }
+
+        .tooltip .tooltiptext::after {
+            content: " ";
+            position: absolute;
+            top: 100%; /* At the bottom of the tooltip */
+            left: 50%;
+            margin-left: -5px;
+            border-width: 5px;
+            border-style: solid;
+            border-color: black transparent transparent transparent;
+        }
+
+        /* Tooltip text */
+        .tooltip .tooltiptext {
+            /*width: 120px;*/
+            bottom: 100%;
+            left: 50%; 
+            margin-left: -60px; /* Use half of the width (120/2 = 60), to center the tooltip */
+            visibility: hidden;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            margin: 5px;
+ 
+            /* Position the tooltip text - see examples below! */
+            position: absolute;
+            z-index: 1;
+        }
+
+        /* Show the tooltip text when you mouse over the tooltip container */
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }
+
+        .datepicker{z-index:1151 !important;}
+
+        .hide-element{
+            opacity: 0;
+        }
+
+        .fade-show-element {
+            -webkit-transition: opacity 1s ease-in-out;
+            -moz-transition: opacity 1s ease-in-out;
+            -ms-transition: opacity 1s ease-in-out;
+            -o-transition: opacity 1s ease-in-out;
+             opacity: 1;
+        }
+
+        @-moz-keyframes spin { 100% { -moz-transform: rotateY(360deg); } }
+        @-webkit-keyframes spin { 100% { -webkit-transform: rotateY(360deg); } }
+        @keyframes spin { 100% { -webkit-transform: rotateY(360deg); transform:rotateY(360deg); } }
+
+        .btn-floating:hover > i,
+        .btn-app:hover > .fa {
+            -webkit-animation:spin 2s linear infinite;
+            -moz-animation:spin 2s linear infinite;
+            animation:spin 2s linear infinite;
+        }
+ 
+        .box.box-warning {
+            border-top-color: #FF8F00;
+        }
+
+        #printableHR {
+        display: block;
+        height: 1px;
+        background: transparent;
+        width: 100%;
+        border: none;
+        border-top: solid 1px #aaa;
+        margin-top:0px;
+        }
+
+        .zc-license,
+        .zc-menu {
+            display:none !important;
+        }
+
+        .table-row {
+            padding-top: 5px;
+        }
+
+        .no-margin-print {
+            margin-left: 0;
+            margin-right: 0;
+        }
+
+        .col-xs-15 {
+            width: 20%;
+            float: left;
+        }
+        @media (min-width: 768px) {
+        .col-sm-15 {
+                width: 20%;
+                float: left;
+            }
+        }
+        @media (min-width: 992px) {
+            .col-md-15 {
+                width: 20%;
+                float: left;
+            }
+        }
+        @media (min-width: 1200px) {
+            .col-lg-15 {
+                width: 20%;
+                float: left;
+            }
+        }
+  
+    @media screen {
+        div.divHeaderRight {
+            display: none;
+        }
+
+        div.divHeaderLeft {
+            display: none;
+        }
+
+        .titulo-resumen-periodo {
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+    }
+    @media print {
+        div.divHeaderRight {
+            position: fixed;
+            top: 0;
+            right: 2%;
+        }
+
+        .row {
+            margin-bottom: 0;
+            margin-top: 0;
+        }
+
+        div.divHeaderLeft {
+            position: fixed;
+            top: 0;
+            left: 2%;
+        }
+
+        .table-row {
+            padding-top: 2px;
+            font-size: 90%;
+        }
+
+        .h1, h1 {
+            font-size: 170%;
+        }
+
+        .h2, h2 {
+            font-size: 140%;
+        }
+
+        .h3, h3 {
+            font-size: 120%;
+        }
+
+        .h4, h4 {
+            font-size: 90%;
+        }
+
+        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+            line-height: 80%;
+        }
+
+        .table, table {
+            font-size: 80%;
+        }
+
+        #resize-knob {
+            /*-ms-transform: scale(0.60,0.60);
+            -webkit-transform: scale(0.60,0.60);
+            transform: scale(0.60,0.60);*/
+            zoom: 0.8;
+            -moz-transform: scale(0.8);
+        }
+
+        resize-smaller, .resize-smaller{
+            zoom: 0.8;
+            -moz-transform: scale(0.8);
+        }
+
+        resize-xsmaller, .resize-xsmaller{
+            zoom: 0.7;
+            -moz-transform: scale(0.7);
+        }
+
+        resize-xxsmaller, .resize-xxsmaller{
+            zoom: 0.6;
+            -moz-transform: scale(0.6);
+        }
+
+        .titulo-resumen-periodo {
+            margin-bottom: 1%;
+            margin-top: 0px;
+        }
+
+        center-print, .center-print {
+            text-align: center;
+        }
+
+        right-print, .right-print {
+            text-align: right;
+        }
+
+        print-text-small, .print-text-small {
+            font-size: 90%;
+        }
+
+        print-text-smaller, .print-text-smaller {
+            font-size: 70%;
+        }
+    }
+
+    @media only print
+    {
+        .col-print-1 {width:8%;  float:left;}
+        .col-print-2 {width:16%; float:left;}
+        .col-print-15 {width: 20%;float: left;}
+        .col-print-3 {width:25%; float:left;}
+        .col-print-4 {width:33%; float:left;}
+        .col-print-5 {width:42%; float:left;}
+        .col-print-6 {width:50%; float:left;}
+        .col-print-7 {width:58%; float:left;}
+        .col-print-8 {width:66%; float:left;}
+        .col-print-9 {width:75%; float:left;}
+        .col-print-10{width:83%; float:left;}
+        .col-print-11{width:92%; float:left;}
+        .col-print-12{width:100%; float:left;}
+
+        
+
+        #resize-knob {
+            -ms-transform: scale(0.80,0.80); /* IE 9 */
+            -webkit-transform: scale(0.80,0.80); /* Safari */
+            transform: scale(0.80,0.80);
+        }
+
+        .box-title, .h3 {
+            font-size: 8px;
+        }
+
+        .box {
+            page-break-inside: avoid;
+            font-size: 12px;
+        }
+
+        #sla_content {
+            padding-top: 20px;
+        }
+
+        .progress-bar
+         {
+            color: #00c0ef !important;
+            background-color: #00c0ef !important;
+        }
+
+
+       .progress span {
+            position: absolute;
+            display: block;
+            width: 100%;
+            color: black;
+        }
+
+       .progress {
+        position: relative;
+        -webkit-print-color-adjust: exact;
+        color: lightblue !important;
+        background-color: lightblue !important;
+        }
+                 
+        .bar,
+        .barra_interna,
+        .barra_externa,
+        .circulo,
+        .circulo_top {
+            -webkit-print-color-adjust: exact;
+        }
+
+        .text-white {
+            -webkit-print-color-adjust: exact;
+            color: white !important;
+        }
+
+        .barra_interna {
+            -webkit-print-color-adjust: exact;
+            color: #1565C0 !important;
+            background-color: #1565C0 !important;
+            background: #1565C0 !important;
+        }
+
+        .barra_externa {
+            -webkit-print-color-adjust: exact;
+            color: #2196F3 !important;
+            background-color: #2196F3 !important;
+            background: #2196F3 !important;
+        }
+    }

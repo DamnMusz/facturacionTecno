@@ -1,0 +1,91 @@
+﻿<link href="www/css/resumen_ejecutivo.css" rel="stylesheet" />
+
+<h3>Resumen Ejecutivo Semestral por {{group_column_name}}</h3>
+
+<div class="row no-print">
+    <div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+        <div class="input-group" style="width:100%">
+            <div class="form-group" style="width:100%">
+                <div class='input-group date' id='fechasResumenSemestral' style="width:100%">
+                    <span class="input-group-addon">
+                        <span class="fa fa-calendar"></span>
+                    </span>
+                    <input ng-disabled="loading_semestral"
+                           type='text' class="form-control" ng-model="filtro.inicio_semestre" ng-change="GetSemestral()"/>
+                </div>
+            </div>
+        </div>
+        <div ng-show="filtro.inicio_semestre != undefined">Desde {{addMonths(filtro.inicio_semestre,-5)}} hasta {{filtro.inicio_semestre}}</div>
+    </div>
+    <div class="col-lg-6 no-print">
+        <a class="waves-effect waves-light btn indigo white-text no-print" ng-click="imprimir()">
+            <i class="material-icons left">print</i>Imprimir
+        </a>
+        <a class="waves-effect waves-light btn green darken-2 white-text no-print" ng-click="a_csv()">
+            <i class="material-icons left">insert_drive_file</i>Exportar a CSV
+        </a>
+    </div>
+    <div class="col-xs-4 no-print" ng-show="loading_semestral">
+        <h4><i class="fa fa-refresh fa-spin"></i>  {{loading_table_text}}</h4>
+    </div>
+</div>
+
+<div class="table-responsive" ng-show="semestre.length > 0">
+    <table class="table table-bordered table-striped table-hover resumen_por_aseguradora">
+        <thead>
+            <tr>
+                <th>
+                    <a class="text-black" ng-click="sortBy('aseguradora')">{{group_column_name}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('mes1')">{{semestre[0]}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('mes2')">{{semestre[1]}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="col_1 text-center text-black" ng-click="sortBy('mes3')">{{semestre[2]}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('mes4')">{{semestre[3]}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('mes5')">{{semestre[4]}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('mes6')">{{semestre[5]}}</a>
+                </th>
+                <th class="text-center">
+                    <a class="col_1 text-center text-black" ng-click="sortBy('proporcion_trimestre_1')">1er trimestre</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('proporcion_trimestre_2')">2do trimestre</a>
+                </th>
+                <th class="text-center">
+                    <a class="text-black" ng-click="sortBy('proporcion_semestre')">Semestre</a>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="fila in resumen_semestral | orderBy:propertyName:reverse">
+                <td>{{getGroupingValue(fila)}}</td>
+                <td class="text-center">{{fila.mes1}}</td>
+                <td class="text-center">{{fila.mes2}}</td>
+                <td class="text-center">{{fila.mes3}}</td>
+                <td class="text-center">{{fila.mes4}}</td>
+                <td class="text-center">{{fila.mes5}}</td>
+                <td class="text-center">{{fila.mes6}}</td>
+                <td class="text-center"
+                    ng-class="{'text-red': fila.proporcion_trimestre_1<0, 'text-green': fila.proporcion_trimestre_1>=0}">
+                    <b>{{fila.proporcion_trimestre_1}}%</b>
+                </td>
+                <td class="text-center"
+                    ng-class="{'text-red': fila.proporcion_trimestre_2<0, 'text-green': fila.proporcion_trimestre_2>=0}"
+                    ><b>{{fila.proporcion_trimestre_2}}%</b></td>
+                <td class="text-center"
+                    ng-class="{'text-red': fila.proporcion_semestre<0, 'text-green': fila.proporcion_semestre>=0}"
+                    ><b>{{fila.proporcion_semestre}}%</b></td>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,602 @@
+﻿<style>
+    .pagination > .active > a,
+    .pagination > .active > a:focus,
+    .pagination > .active > a:hover,
+    .pagination > .active > span,
+    .pagination > .active > span:focus,
+    .pagination > .active > span:hover,
+    .btn-floating > .active > span:hover {
+        background-color: #03A9F4;
+        border-color: #03A9F4;            
+    }
+
+    .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td,
+    .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover
+     {
+        cursor: pointer;
+    }
+
+    #filtrar_incompletos {
+        color: aqua;
+        cursor: pointer;
+    }
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+
+        /* The animation code */
+
+    @keyframes show-alpha {
+        0%   {opacity: 0;}
+        100% {opacity: 100;}
+    }
+
+    @keyframes hide-alpha {
+        0%   {opacity: 100;}
+        100% {opacity: 0;}
+    }
+
+    @keyframes show-right {
+        0%   {left:200px;}
+        100% {left:0px;}
+    }
+
+    @keyframes show-right-periodo {
+        0%   {left:200px;}
+        100% {left:0px; opacity: 100;}
+    }
+
+    @keyframes hide-right {
+        0%   {left:0px;}
+        100% {left:200px;}
+    }
+
+    @keyframes show-left {
+        0%   {left:500px;}
+        100% {left:0px;}
+    }
+
+    @keyframes show-up {
+        0%   {top:1000px;}
+        100% {top:0px;}
+    }
+
+    @keyframes alert_danger {
+    0%   {background-color: white; border-color: white; top:50px; box-shadow: 0 0px 0px 0 rgba(0,0,0,0),0 0px 0px 0px rgba(0,0,0,0),0 0px 0px 0 rgba(0,0,0,0);}
+    100% {background-color: #dd4b39; border-color: #dd4b39; top:0px; box-shadow: 0 8px 8px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);}
+    }
+
+    @keyframes alert_filtrar {
+    0%   {background-color: white; border-color: white;}
+    100% {background-color: #dd4b39; border-color: #dd4b39;}
+    }
+
+    .tarifa-left-box {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    .tarifa-right-box {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    #centro-up-box {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    #filtrar_incompletos {
+        animation-name: alert_filtrar;
+        animation-duration: 2s;
+    }
+
+    .alert-danger{
+        animation-name: alert_danger;
+        animation-duration: 2s;
+    }
+
+    .show-from-right {
+        animation-name: show-right;
+        animation-duration: 1s;
+    }
+
+    .show-from-right-delayed {
+        animation-name: show-right;
+        animation-duration: 1s;
+        animation-delay: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .show-btn-periodo {
+        animation-name: show-right-periodo;
+        animation-duration: 1s;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .anim-show-alpha {
+        animation-name: show-alpha;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .anim-hide-alpha {
+        animation-name: hide-alpha;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .show-btn-periodo-alpha {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .hide-btn-periodo {
+        animation-name: hide-alpha;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .hide-to-right {
+        animation-name: hide-right;
+        animation-duration: 1s;
+    }
+
+    .btn-app {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    .btn-floating {
+        margin-right:5px;
+    }
+</style>
+
+<!--<img src="http://www.dima3d.com/wp-content/uploads/2014/06/PAGINA-EN-CONSTRUCCION.jpg" style="height:50%;width:50%;" />-->
+<h3>Facturación Centros</h3>
+
+<div class="row">
+    <div class="col-xs-12">
+        <a class="btn btn-app waves-effect waves-light" ng-class="{'bg-aqua': selection===0}" ng-click="select(0)">
+            <i class="fa fa-home"></i> Centros
+        </a>
+        <a class="btn btn-app waves-effect waves-light" ng-class="{'bg-aqua': selection===1}" ng-click="select(1)">
+            <i class="fa fa-dollar"></i> Tarifas
+        </a>
+        <a class="btn btn-app waves-effect waves-light" ng-class="{'bg-aqua': selection===2, 'disabled': (hay_centros_incompletos || cantidad_tarifas_incompletas > 0)}" ng-click="select(2)">
+            <i class="fa fa-money"></i> Facturar
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    
+        
+    <div id="solapa_centros" ng-show="selection===0">
+        <div ng-include="'www/facturacion_centros_solapa_centros.partial.html'"></div>
+    </div>    
+    <div id="solapa_tarifas_global" ng-show="selection===1">
+        <div ng-include="'www/facturacion_centros_solapa_tarifas_global.partial.html'"></div>
+    </div>    
+    
+</div>
+
+
+
+<div id="modalEditRow" class="modal modal-default fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content box">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-edit"> Editar Información del Centro</i></h4><span class="badge bg-blue">#{{centro_selected_aux.id}} {{centro_selected_aux.nombre_centro}}</span>
+            </div>
+            <div class="modal-body box-body">
+                <div class="row">
+                    <form role="form" data-toggle="validator" id="formEditRow">
+                        <div class="col-xs-12">
+                            <div class="col-xs-8">
+                                <div class="form-group">
+                                    <label>Nombre Fantasía:</label>
+                                    <input type="text" class="form-control" ng-model="centro_selected_aux.nombre_fantasia">
+                                </div>
+                            </div>
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <div class="switch">
+                                        <label>
+                                            Inactivo
+                                            <input type="checkbox" ng-model="centro_selected_aux.activo" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span class="lever"></span>
+                                            Activo
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="switch">
+                                        <label>
+                                            Externo
+                                            <input type="checkbox" ng-model="centro_selected_aux.propio" ng-true-value="'true'" ng-false-value="'false'">
+                                            <span class="lever"></span>
+                                            Propio
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-4">
+                                <div class="form-group">
+                                    <label>CUIT:</label>
+                                    <input type="text" class="form-control" pattern="([0-9]{2}-[0-9]{8}-[0-9])|([0-9]{11})" data-inputmask='"mask": "99-99999999-9"' data-mask ng-model="centro_selected_aux.cuit" required>
+                                </div>
+                            </div>
+                            <div class="col-xs-2">
+                                <label>Factura:</label>
+                                <div class="btn-group" style="width: 100%" ng-click="toogle_factura(centro_selected_aux)">
+                                    <button type="button" class="btn btn-default waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top"
+                                            title="Cambiar Tipo de Factura" style="display:inline-block; width: 40px">
+                                        <b>{{centro_selected_aux.tipo_factura}}</b>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Razón Social:</label>
+                                    <input type="text" class="form-control" ng-model="centro_selected_aux.razon_social">
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Provincia Legal:</label>
+                                    <div class="btn-group" style="width: 100%">
+                                        <button type="button" class="btn btn-default waves-effect waves-light" style="width: 90%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{centro_selected_aux.provincia_legal.value || '-'}}</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu scrollable-menu">
+                                            <li ng-repeat="item in provincias" value="{{item}}" ng-click="select_provincia(item)">
+                                                <a>{{item.value}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-xs-6">
+                                <div class="form-group">
+                                    <label>Localidad Legal:</label>
+                                    <div class="btn-group" style="width: 100%">
+                                        <button type="button" class="btn btn-default waves-effect waves-light" style="width: 90%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ng-click="load_localidades()">{{centro_selected_aux.localidad_legal.value || '-'}}</button>
+                                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;" ng-click="load_localidades()">
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu scrollable-menu">
+                                            <li ng-repeat="item in localidades" value="{{item}}" ng-click="select_localidad(item)">
+                                                <a>{{item.value}}</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-xs-4">
+                                    <label>Calle:</label>
+                                    <input type="text" class="form-control" ng-model="centro_selected_aux.direccion_legal_calle">
+                                </div>
+                                <div class="col-xs-2">
+                                    <label>Número:</label>
+                                    <input type="number" class="form-control" ng-model="centro_selected_aux.direccion_legal_numero">
+                                </div>
+
+                                <div class="col-xs-5">
+                                    <div class="form-group">
+                                        <label>Afinidad Tarifaria:</label>
+                                        <div class="btn-group" style="width: 100%">
+                                            <button type="button" class="btn btn-default waves-effect waves-light" style="width: 90%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{centro_selected_aux.afinidad_tarifaria.value || '-'}}</button>
+                                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                                <span class="caret"></span>
+                                                <span class="sr-only">Toggle Dropdown</span>
+                                            </button>
+                                            <ul class="dropdown-menu scrollable-menu">
+                                                <li ng-repeat="item in afinidades_tarifarias" value="{{item}}" ng-click="select_afinidad(item)">
+                                                    <a>{{item.value}}</a>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-xs-1">
+                                    <label>Editar</label>
+                                    <div class="btn-group" style="width: 100%" data-toggle="modal" data-target="#modalNuevaAfinidad" ng-click="menu_afinidad()">
+                                        <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top"
+                                                title="Crear Nueva Afinidad Tarifaria">
+                                            <i class="fa fa-edit"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times" aria-hidden="true"
+                                style="padding-right: 10px"></span>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="update_centro(centro_selected_aux)">
+                        <span class="fa fa-check" aria-hidden="true"
+                                style="padding-right: 10px"></span>Enviar
+                    </button>
+                </div>
+            </div>
+            
+            <div class="overlay" ng-show="loading_edit_modal">
+                <div class="col-xs-12">
+                    <h5 class="pull-right">{{loading_edit_modal_text}}</h5>
+                </div>
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalNuevaAfinidad" class="modal modal-default fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-edit"> Editar Afinidades Tarifarias</i></h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label style="font-size:16px; color:dimgray">Crear Nueva Afinidad</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="form-group">
+                            <label>Nombre Nueva Afinidad:</label>
+                            <input type="text" class="form-control" ng-model="txt_nueva_afinidad">
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <label>Crear</label>
+                        <div class="btn-group" style="width: 100%" ng-click="crear_afinidad()">
+                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top"
+                                    title="Crear Nueva Afinidad Tarifaria">
+                                <i class="fa fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>                        
+                </div>
+                <div class="row">
+                    <div class="col-xs-12">
+                        <label style="font-size:16px; color:dimgray">Eliminar Afinidad</label>
+                    </div>
+                    <div class="col-xs-10">
+                        <div class="form-group">
+                            <label>Afinidad Tarifaria:</label>
+                            <div class="btn-group" style="width: 100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width: 95%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{afinidad_tarifaria_eliminar.value || '-'}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in afinidades_tarifarias" value="{{item}}" ng-click="select_afinidad_eliminar(item)">
+                                        <a>{{item.value}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-2">
+                        <label style="color:darkred">Eliminar</label>
+                        <div class="btn-group" style="width: 100%" ng-click="modal_eliminar_afinidad()" >
+                            <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light bg-red" data-toggle="tooltip" data-placement="top"
+                                    title="Eliminar Afinidad Tarifaria">
+                                <i class="fa fa-minus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times" aria-hidden="true"
+                              style="padding-right: 10px"></span>Cerrar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="modalSearch" class="modal modal-default fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content box">
+            <div class="modal-header">
+                <h4 class="modal-title"><i class="fa fa-search"><b> Búsqueda de centros</b></i></h4>
+            </div>
+            <div class="modal-body box-body">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>ID</label>
+                                <input type="number" ng-model="busqueda.id" class="form-control" />
+                            </div>
+                        </div>
+                        <div class="col-lg-5">
+                            <label>Nombre en Agenda</label>
+                            <input type="text" ng-model="busqueda.nombre" class="form-control" />
+                        </div>
+
+                        <div class="col-lg-5">
+                            <label>Nombre de Fantasía</label>
+                            <input type="text" ng-model="busqueda.nombre_fantasia" class="form-control" />
+                        </div>
+
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-4">
+                            <div class="form-group">
+                                <label>CUIT</label>
+                                <input type="text" ng-model="busqueda.cuit" class="form-control" pattern="([0-9]{2}-[0-9]{8}-[0-9])|([0-9]{11})" data-inputmask='"mask": "99-99999999-9"' data-mask />
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Razón Social</label>
+                            <input type="text" ng-model="busqueda.razon_social" class="form-control" />
+                        </div>
+
+                        <div class="col-xs-1">
+                            <label>Factura</label>
+                            <div class="btn-group" style="width: 100%" ng-click="toogle_factura(busqueda)">
+                                <button type="button" class="btn btn-default waves-effect waves-light bg-aqua" data-toggle="tooltip" data-placement="top"
+                                        title="Cambiar Tipo de Factura" style="display:inline-block; width: 40px">
+                                    <b>{{busqueda.tipo_factura}}</b>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3">
+                            <div class="form-group" style="text-align:center;">
+                                <p>
+                                    <input id="chk_activo" type="checkbox">
+                                    <label for="chk_activo">Activo</label>
+                                </p>
+                            </div>
+                            <div class="form-group" style="text-align:center;">
+                                <p>
+                                    <input id="chk_propio" type="checkbox">
+                                    <label for="chk_propio">Propio</label>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-6">
+                            <label>Provincia (Legal)</label>
+                            <div class="btn-group" style="width: 100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width: 100%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{busqueda.provincia.value || '-'}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in provincias" value="{{item}}" ng-click="select_provincia_buscar(item)">
+                                        <a>{{item.value}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <label>Localidad (Legal)</label>
+                            <div class="btn-group" style="width: 100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width: 100%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{busqueda.localidad.value || '-'}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in localidades" value="{{item}}" ng-click="select_localidad_buscar(item)">
+                                        <a>{{item.value}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                    <div class="col-lg-12">
+                        <div class="col-lg-6 col-md-8">
+                            <div class="form-group">
+                                <label>Calle (Legal)</label>
+                                <input type="text" class="form-control"  ng-model="busqueda.calle"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-2 col-md-4">
+                            <div class="form-group">
+                                <label>Número</label>
+                                <input type="number" class="form-control"  ng-model="busqueda.numero"/>
+                            </div>
+                        </div>
+                        <div class="col-lg-4">
+                            <label>Afinidad Tarifaria</label>
+                            <div class="btn-group" style="width: 100%">
+                                <button type="button" class="btn btn-default waves-effect waves-light" style="width: 100%;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">{{busqueda.afinidad_tarifaria.value || '-'}}</button>
+                                <button type="button" class="btn btn-default dropdown-toggle waves-effect waves-light" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="position:absolute;top:0;right:0;">
+                                    <span class="caret"></span>
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <ul class="dropdown-menu scrollable-menu">
+                                    <li ng-repeat="item in afinidades_tarifarias" value="{{item}}" ng-click="select_afinidad_buscar(item)">
+                                        <a>{{item.value}}</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times" aria-hidden="true"
+                              style="padding-right: 10px"></span>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="busqueda_centros_todos()">
+                        <span class="fa fa-trash" aria-hidden="true"
+                              style="padding-right: 10px"></span>Limpiar Filtros
+                    </button>
+                    <button type="button" class="btn btn-default" ng-click="busqueda_centros()" >
+                        <span class="fa fa-search" aria-hidden="true"
+                              style="padding-right: 10px"></span>Buscar
+                    </button>
+                </div>
+            </div>
+
+            <div class="overlay" ng-show="loading_edit_modal">
+                <div class="col-xs-12">
+                    <h5 class="pull-right">{{loading_edit_modal_text}}</h5>
+                </div>
+                <i class="fa fa-refresh fa-spin"></i>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="modalAlertEliminarAfinidad" class="modal modal-default fade" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:darkgoldenrod; border-color:darkgoldenrod;">
+                <h4 class="modal-title"><i class="fa fa-warning"><b> Alerta</b></i></h4>
+            </div>
+            <div class="modal-body">
+                <b>¿Eliminar afinidad tarifaria: "{{afinidad_tarifaria_eliminar.value}}"?</b>
+            </div>
+            <div class="modal-footer" style="border-color:darkgoldenrod;">
+                <div class="pull-right">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        <span class="fa fa-times" aria-hidden="true"
+                              style="padding-right: 10px"></span>Cancelar
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="eliminar_afinidad()">
+                        <span class="fa fa-check" aria-hidden="true"
+                              style="padding-right: 10px"></span>Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

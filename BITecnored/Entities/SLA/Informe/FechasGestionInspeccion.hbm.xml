@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.SLA.Informe">
+  <class name="FechasGestionInspeccion" table="sla">
+    <id name="id" column="id_triki"></id>
+    <property name="fecha_solicitud" column="fecha_solicitud"/>
+    <property name="fecha_inspeccion" column="fecha_inspeccion"/>
+    <property name="fecha_publicacion" column="fecha_envio"/>
+    <property name="tipo_inspeccion" column="tipo_inspeccion"/>
+    <property name="tipo_prestador" column="tipo_prestador"/>
+    <property name="periodo" column="periodo"/>
+    <property name="aseguradora_alias" column="aseguradora_alias"/>
+    <many-to-one
+      name="lugar"
+      column="id_lugares"
+      class="BITecnored.Entities.Basic.Lugares"
+      not-found="ignore"
+      outer-join="true"
+      lazy="false"
+      not-null="false"
+    />
+  </class>
+</hibernate-mapping>
+<!--fetch="join"
+      not-found="ignore"-->
+      

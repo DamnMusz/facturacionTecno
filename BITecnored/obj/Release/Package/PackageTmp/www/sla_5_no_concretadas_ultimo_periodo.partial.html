@@ -1,0 +1,41 @@
+<div class="row" style="margin-bottom: 10px; margin-top: 20px;">
+    <div class="col-xs-12">
+        <h3 class="no-margin">6. Principales motivos de solicitud sin efecto durante el per&iacute;odo</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <span><b>{{filtro.mes}}</b></span>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <hr id="printableHR" />
+                <div ng-repeat="motivo in motivos_sin_efecto" class="row table-row">
+                    <span>
+                        <span class="col-sm-8 col-xs-8 print-text-small">
+                            <span>{{motivo.nombre}}</span>
+                        </span>
+                        <span class="col-sm-2 col-xs-2 print-text-small">
+                            <span class="pull-right" style="margin-right:10px;">{{motivo.cantidad}}</span>
+                        </span>
+                        <span class="col-sm-2 col-xs-2 print-text-small">
+                            <span class="pull-right" style="margin-left:10px;">{{porcentaje(motivo.cantidad,total_motivos())}}%</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <hr id="printableHR" />
+                <span>
+                    <span class="col-sm-8 col-xs-8"></span>
+                    <span class="col-sm-2 col-xs-2">
+                        <span class="pull-right print-text-small">{{total_motivos()}}</span>
+                    </span>
+                    <span class="col-sm-2 col-xs-2"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

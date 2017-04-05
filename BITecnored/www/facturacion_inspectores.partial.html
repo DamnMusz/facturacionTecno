@@ -1,0 +1,116 @@
+﻿<img  src="http://www.dima3d.com/wp-content/uploads/2014/06/PAGINA-EN-CONSTRUCCION.jpg" style="height:50%;width:50%;"/>
+    <!--<h3>Facturación Inspectores</h3>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <a class="btn btn-app waves-effect waves-light" ng-class="{'bg-aqua': selection===0}" ng-click="select(0)">
+                <i class="fa fa-users"></i> Inspectores
+            </a>
+            <a class="btn btn-app waves-effect waves-light" ng-class="{'bg-aqua': selection===1}" ng-click="select(1)">
+                <i class="fa fa-dollar"></i> Tarifas
+            </a>
+            <a class="btn btn-app waves-effect waves-light" ng-class="{'bg-aqua': selection===2}" ng-click="select(2)">
+                <i class="fa fa-money"></i> Facturar
+            </a>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box" ng-show="selection===0">
+                <div class="box-header">
+                    <h3 class="box-title">Inspectores Tecnored</h3>
+                </div>
+                <div class="box-body">
+                    <div class="table-responsive">
+                        <table st-table="peritos" class="table table-bordered table-striped table-responsive table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Nombre(s)</th>
+                                    <th>Apellido(s)</th>
+                                    <th>Plus</th>
+                                    <th>Mínimo</th>
+                                    <th>Vínculo</th>
+                                    <th>IVA</th>
+                                    <th>Productividad</th>
+                                    <th>Límite KM</th>
+                                    <th>Días Pago Excedentes</th>
+                                </tr>
+
+                            </thead>
+                            <tbody data-toggle="modal"
+                                   data-target="#myModal">
+                                <tr ng-repeat="perito in peritos">
+                                    <td>{{perito.nombre}}</td>
+                                    <td>{{perito.apellido}}</td>
+                                    <td>${{perito.plus}}</td>
+                                    <td>${{perito.minimo}}</td>
+                                    <td>{{perito.vinculo}}</td>
+                                    <td ng-if="perito.iva"><span class="badge bg-green" style="width:40px;">Si</span></td>
+                                    <td ng-if="!perito.iva"><span class="badge bg-red" style="width:40px;">No</span></td>
+                                    <td>${{perito.productividad}}</td>
+                                    <td>{{perito.limite_km}} km</td>
+                                    <td>
+                                        <span class="badge bg-light-blue" ng-show="perito.lunes">Lu</span>
+                                        <span class="badge bg-purple" ng-show="perito.martes">Ma</span>
+                                        <span class="badge bg-green" ng-show="perito.miercoles">Mi</span>
+                                        <span class="badge bg-maroon" ng-show="perito.jueves">Ju</span>
+                                        <span class="badge bg-orange" ng-show="perito.viernes">Vi</span>
+                                        <span class="badge bg-red" ng-show="perito.sabado">Sa</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-7">
+                            <div id="tablaPeritos_paginate" class="dataTables_paginate paging_simple_numbers pull-right">
+                                <ul class="pagination">
+                                    <li id="tablaPeritos_previous" class="paginate_button previous disabled">
+                                        <a tabindex="0" data-dt-idx="0" aria-controls="tablaPeritos" href="#">Anterior</a>
+                                    </li>
+                                    <li class="paginate_button active">
+                                        <a tabindex="0" data-dt-idx="1" aria-controls="tablaPeritos" href="#">1</a>
+                                    </li>
+                                    <li class="paginate_button ">
+                                        <a tabindex="0" data-dt-idx="2" aria-controls="tablaPeritos" href="#">2</a>
+                                    </li>
+                                    <li class="paginate_button ">
+                                        <a tabindex="0" data-dt-idx="3" aria-controls="tablaPeritos" href="#">3</a>
+                                    </li>
+                                    <li id="tablaPeritos_next" class="paginate_button next">
+                                        <a tabindex="0" data-dt-idx="4" aria-controls="tablaPeritos" href="#">Siguiente</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="myModal" class="modal modal-default fade" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4><i class="fa fa-edit"> Editar Información del Inspector</i></h4>
+                </div>
+                <div class="modal-body">
+                    Campos de edición
+                </div>
+                <div class="modal-footer">
+                    <div class="pull-right">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="fa fa-times" aria-hidden="true"
+                                  style="padding-right: 10px"></span>Cancelar
+                        </button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            <span class="fa fa-check" aria-hidden="true"
+                                  style="padding-right: 10px"></span>Enviar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>-->

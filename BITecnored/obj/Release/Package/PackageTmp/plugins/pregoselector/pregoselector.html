@@ -1,0 +1,10 @@
+<div class="multiselect col-xs-12 col-sm-6 col-md-2 col-lg-2" ng-repeat="item in availableItems" ng-click="selectItem(item)">
+    <div class="box multiselect_box" ng-class="{selected:item.selected, 'not-selected': item.selected==false}" ng-mouseover="item.hover=true" ng-mouseleave="item.hover=false">
+        <div class="box-body box-profile">
+            <img class="profile-user-img img-responsive img-circle" ng-src="{{item.icon_uri}}" alt="{{item.text}}">
+            <h3 class="profile-username text-center">{{item.text}}</h3>
+            <p ng-if="readOnly!='true'" ng-show="item.hover && item.selected" class="help-text text-muted text-center">(click para deseleccionar)</p>
+            <p ng-if="readOnly!='true'" ng-show="item.hover && !item.selected" class="help-text text-muted text-center">(click para seleccionar)</p>
+        </div>
+    </div>
+</div>

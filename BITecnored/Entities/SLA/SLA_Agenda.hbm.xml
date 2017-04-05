@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.SLA">
+  <class name="SLA_Agenda" table="sla_agenda">
+    <id name="id_agenda" column="id_agenda"/>
+    <property name="estado" column="estado"/>
+    <property name="subestado" column="subestado"/>
+    <property name="periodo" column="periodo"/>
+    <property name="motivo" column="motivo"/>
+    <property name="aseguradora_id" column="aseguradora_id"/>
+    <property name="aseguradora_alias" column="aseguradora_alias"/>
+  </class>
+</hibernate-mapping>

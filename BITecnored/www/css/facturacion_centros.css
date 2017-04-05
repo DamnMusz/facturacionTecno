@@ -1,0 +1,197 @@
+﻿    .pagination > .active > a,
+    .pagination > .active > a:focus,
+    .pagination > .active > a:hover,
+    .pagination > .active > span,
+    .pagination > .active > span:focus,
+    .pagination > .active > span:hover,
+    .btn-floating > .active > span:hover {
+        background-color: #03A9F4;
+        border-color: #03A9F4;            
+    }
+
+    .table-bordered > tbody > tr > th, .table-bordered > tbody > tr > td,
+    .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover
+     {
+        cursor: pointer;
+    }
+
+    #filtrar_incompletos {
+        color: aqua;
+        cursor: pointer;
+    }
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button { 
+        -webkit-appearance: none; 
+        margin: 0; 
+    }
+
+        /* The animation code */
+
+    @keyframes show-alpha {
+        0%   {opacity: 0;}
+        100% {opacity: 100;}
+    }
+
+    @keyframes hide-alpha {
+        0%   {opacity: 100;}
+        100% {opacity: 0;}
+    }
+
+    @keyframes show-right {
+        0%   {left:200px;}
+        100% {left:0px;}
+    }
+
+    @keyframes show-right-periodo {
+        0%   {left:200px;}
+        100% {left:0px; opacity: 100;}
+    }
+
+    @keyframes hide-right {
+        0%   {left:0px;}
+        100% {left:200px;}
+    }
+
+    @keyframes show-left {
+        0%   {left:500px;}
+        100% {left:0px;}
+    }
+
+    @keyframes show-up {
+        0%   {top:1000px;}
+        100% {top:0px;}
+    }
+
+    @keyframes alert_danger {
+    0%   {background-color: white; border-color: white; top:50px; box-shadow: 0 0px 0px 0 rgba(0,0,0,0),0 0px 0px 0px rgba(0,0,0,0),0 0px 0px 0 rgba(0,0,0,0);}
+    100% {background-color: #dd4b39; border-color: #dd4b39; top:0px; box-shadow: 0 8px 8px 0 rgba(0,0,0,.14),0 3px 1px -2px rgba(0,0,0,.2),0 1px 5px 0 rgba(0,0,0,.12);}
+    }
+
+    @keyframes alert_filtrar {
+    0%   {background-color: white; border-color: white;}
+    100% {background-color: #dd4b39; border-color: #dd4b39;}
+    }
+
+    .tarifa-left-box {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    .tarifa-right-box {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    #centro-up-box {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    #filtrar_incompletos {
+        animation-name: alert_filtrar;
+        animation-duration: 2s;
+    }
+
+    .alert-danger{
+        animation-name: alert_danger;
+        animation-duration: 2s;
+    }
+
+    .show-from-right {
+        animation-name: show-right;
+        animation-duration: 1s;
+    }
+
+    .show-from-right-delayed {
+        animation-name: show-right;
+        animation-duration: 1s;
+        animation-delay: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .show-btn-periodo {
+        animation-name: show-right-periodo;
+        animation-duration: 1s;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .anim-show-alpha {
+        animation-name: show-alpha;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .anim-hide-alpha {
+        animation-name: hide-alpha;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .show-btn-periodo-alpha {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+        animation-delay: 0.5s;
+        animation-fill-mode: forwards;
+    }
+
+    .hide-btn-periodo {
+        animation-name: hide-alpha;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .hide-to-right {
+        animation-name: hide-right;
+        animation-duration: 1s;
+    }
+
+    .btn-app {
+        animation-name: show-alpha;
+        animation-duration: 1s;
+    }
+
+    .btn-floating {
+        margin-right:5px;
+    }
+
+        @keyframes fab-centros-animation {
+    0%   {background-color: blue; left:0px; top:0px;}
+    50%  {background-color: blue; left:200px; top:0px;}
+    100% {background-color: orangered; left:0px; top:0px;}
+    }
+
+    .fab-centros {
+        width: 100px;
+        height: 100px;
+        background-color: orangered;
+        animation-name: fab-centros-animation;
+        animation-duration: 2s;
+    }
+
+    .hover-shadow:hover {
+        box-shadow: 0 4px 4px 0 rgba(0,0,0,.14);
+    }
+
+    tr,
+    td,
+    .table-bordered > tbody > tr > th,
+    .table-bordered > tbody > tr > td,
+    .pagination>li>a:focus,
+    .pagination>li>a:hover,
+    .pagination>li>span:focus,
+    .pagination>li>span:hover {
+        cursor: default;
+    }
+
+    input[type=number]::-webkit-inner-spin-button, 
+    input[type=number]::-webkit-outer-spin-button,
+    .form-control:not(select),
+    .form-control::-webkit-inner-spin-button,
+    .form-control::-webkit-outer-spin-button { 
+        -webkit-appearance: none!important;
+        -moz-appearance: none!important;
+        appearance: none!important;
+        margin: 0!important; 
+    }

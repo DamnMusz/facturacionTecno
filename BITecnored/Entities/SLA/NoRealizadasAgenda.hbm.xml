@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.SLA">
+  <class name="NoRealizadasAgenda" table="`Inspecciones`">
+    <id name="id_agenda" column="`Id`"></id>
+    <property name="estado" column="`Estado`"></property>
+    <property name="subestado" column="subestado"></property>
+    <property name="fecha_solicitud" column="`Fecha`"></property>
+    <property name="motivo" column="`Motivo`"></property>
+    <many-to-one
+      name="aseguradora"
+      column="`Aseguradora`"
+      class=" BITecnored.Entities.Basic.Aseguradora"
+      fetch="join"
+    />
+  </class>
+</hibernate-mapping>

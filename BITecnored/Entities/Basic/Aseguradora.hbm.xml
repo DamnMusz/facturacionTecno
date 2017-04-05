@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.Basic">
+  <class name="Aseguradora" table="`Aseguradoras`">
+    <id name="id" column="`Aseguradoras_Id`"></id>
+    <property name="nombre" column="`Aseguradoras_Nombre`"/>
+    <property name="alias" column="`Aseguradoras_Alias`"/>
+    <property name="activa" column="activa"/>
+  </class>
+</hibernate-mapping>

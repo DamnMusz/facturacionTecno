@@ -1,0 +1,56 @@
+<div class="row" style="margin-bottom: 10px; margin-top: 20px;">
+    <div class="col-xs-12">
+        <h3 class="no-margin">4. Distribuci&oacute;n de casos por cantidad de fotograf&iacute;as consignadas</h3>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <span>
+                    <span class="col-sm-6 col-xs-6 print-text-smaller" style="padding-left:0px;"><span class="pull-left">Cantidad de Fotos</span></span>
+                    <span class="col-sm-2 col-xs-2 print-text-smaller">
+                        <span class="pull-right">Total de Insp.</span>
+                    </span>
+                    <span class="col-sm-2 col-xs-2 print-text-smaller"><span class="pull-right">Promedio</span></span>
+                    <span class="col-sm-2 col-xs-2 print-text-smaller"><span class="pull-right">Porcentaje</span></span>
+                </span>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <hr id="printableHR" />
+                <div ng-repeat="item in cantidad_de_fotos.valores" class="row table-row">
+                    <span>
+                        <span class="col-sm-6 col-xs-6 print-text-small">
+                            <span>IP con {{item.texto}}</span>
+                        </span>
+                        <span class="col-sm-2 col-xs-2 print-text-small">
+                            <span class="pull-right" style="margin-right:10px;">{{item.cantidad}}</span>
+                        </span>
+                        <span class="col-sm-2 col-xs-2 print-text-small">
+                            <span class="pull-right" style="margin-right:10px;">{{round2(item.promedio)}}</span>
+                        </span>
+                        <span class="col-sm-2 col-xs-2 print-text-small">
+                            <span class="pull-right" style="margin-left:10px;">{{porcentaje(item.cantidad,fotos_total_ip())}}%</span>
+                        </span>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-8 col-md-10 col-sm-12 col-xs-12">
+                <hr id="printableHR" />
+                <span>
+                    <span class="col-sm-6 col-xs-6"></span>
+                    <span class="col-sm-2 col-xs-2">
+                        <span class="pull-right print-text-small" style="margin-right:5px;"><b>{{fotos_total_ip()}}</b></span>
+                    </span>
+                    <span class="col-sm-2 col-xs-2"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>

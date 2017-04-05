@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.Logs">
+  <class name="SLACreationLog" table="sla_info">
+    <id name="cierre_prestador"/>
+    <property name="fecha_calculo_sla"/>
+    <property name="usuario_calculo_sla"/>
+  </class>
+</hibernate-mapping>

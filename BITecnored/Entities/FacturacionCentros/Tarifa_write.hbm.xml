@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.FacturacionCentros">
+  <class name="Tarifa_write" table="tarifas_centros">
+    <id column="id" type="long" unsaved-value="0">
+      <generator class="sequence-identity">
+          <param name="sequence">tarifas_centros_id_seq</param>
+      </generator>
+    </id>
+    <property name="nombre" column="nombre"/>
+    <property name="tarifa_por_inspeccion" column="tarifa_por_inspeccion"/>
+    <property name="periodo_desde" column="periodo_desde"/>
+    <property name="periodo_hasta" column="periodo_hasta"/>
+    <property name="color_vista" column="color_vista"/>
+    <property name="observacion" column="observacion"/>
+    <property name="fecha_creacion" column="fecha_creacion"/>
+    <property name="usuario_creacion" column="usuario_creacion"/>
+  </class>
+</hibernate-mapping>

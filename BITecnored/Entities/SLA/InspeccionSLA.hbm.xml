@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+    assembly="BITecnored"
+    namespace="BITecnored.Entities.SLA">
+  <class name="InspeccionSLA" table="sla">
+    <id name="id" column="id_triki"></id>
+    <property name="aseguradora" column="aseguradora_alias"/>
+    <property name="inspector" column="inspector_triki"/>
+    <property name="dominio" column="dominio"/>
+    <property name="fec_envio" column="fecha_envio"/>
+    <property name="tipo_inspeccion" column="tipo_inspeccion"/>
+    <property name="taller" column="taller_triki"/>
+    <property name="fecha_inspeccion" column="fecha_inspeccion"/>
+    <property name="id_agenda" column="id_agenda"/>
+    <property name="qfotos" column="fotos_cantidad"/>
+    <property name="periodo" column="periodo"/>
+    <property name="cierre_fact" column="cierre_aseguradora"/>
+    <property name="cierre_liq_prestador" column="cierre_prestador"/>
+    <property name="tipo_prestador" column="tipo_prestador"/>
+    <property name="id_lugares" column="id_lugares"/>
+  </class>
+</hibernate-mapping>

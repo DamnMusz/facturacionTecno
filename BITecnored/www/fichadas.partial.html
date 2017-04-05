@@ -1,0 +1,39 @@
+﻿<style>
+    .btn-app:hover > .fa {
+        -webkit-animation:none;
+        -moz-animation:none;
+        animation:none;
+    }
+
+    @-moz-keyframes spinZ { 100% { -moz-transform: rotateZ(-360deg); } }
+    @-webkit-keyframes spinZ { 100% { -webkit-transform: rotateZ(-360deg); } }
+    @keyframes spinZ { 100% { -webkit-transform: rotateZ(-360deg); transform:rotateZ(-360deg); } }
+
+    .btn-floating:hover > i
+    {
+        -webkit-animation:spinZ 3s linear infinite;
+        -moz-animation:spinZ 3s linear infinite;
+        animation:spinZ 3s linear infinite;
+    }
+</style>
+
+<h3>Fichadores</h3>
+
+<div class="row">
+    <div class="col-xs-12">
+        <div ng-repeat="fichador in clocks">
+            <a class="btn btn-app bg-blue" style="width:100px;">
+                <i class="fa fa-clock-o"></i> {{fichador.value1}}
+            </a>
+            <b style="padding-left:20px;">{{fichador.value2}}</b>
+        </div>
+        <div style="padding-top:20px;">
+            <a class="btn-floating waves-effect waves-light bg-blue" ng-click="getClocks()"
+               data-toggle="tooltip" data-placement="top" title="Refrescar relojes"><i class="material-icons">cached</i></a>
+        </div>
+    </div>
+    (En desarrollo. Falla conexión con Av. San Juan)
+    <!--<div>
+        <p>{{ clock  | date:'medium'}}</p>
+    </div>-->
+</div>
